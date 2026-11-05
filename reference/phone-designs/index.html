@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone designs — the chosen versions</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--ink:#18181b;--ink2:#3f3f46;--ink3:#6b6b73;--bd:rgba(24,24,27,.12);--tc:#c8593e;--tct:#9c3f29;--fh:'Baloo 2',sans-serif;--fb:'DM Sans',sans-serif;--fm:'Space Mono',monospace;}
+body{background:#e4e1db;font-family:var(--fb);color:var(--ink2);padding:32px 28px 64px;}
+h1{font-family:var(--fh);font-weight:800;font-size:26px;color:var(--ink);margin-bottom:6px;}
+.lead{font-size:14px;line-height:1.65;max-width:900px;margin-bottom:8px;}
+.lead b{color:var(--tct);}
+h2{font-family:var(--fh);font-weight:800;font-size:21px;color:var(--ink);margin:46px 0 6px;}
+.shots{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0;}
+.shots figure{width:260px;}
+.shots img{width:260px;display:block;border-radius:16px;border:1.5px solid rgba(24,24,27,.2);}
+.shots figcaption{font-family:var(--fm);font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-top:6px;line-height:1.5;}
+ul{max-width:900px;margin:6px 0 0 20px;}
+li{font-size:13.5px;line-height:1.6;margin-bottom:5px;}
+.rule{margin-top:36px;max-width:900px;background:#fff;border:1.5px solid var(--bd);border-radius:10px;padding:14px 20px;font-size:13.5px;line-height:1.6;}
+</style>
+</head>
+<body>
+
+<h1>Phone designs — the chosen versions</h1>
+<p class="lead">These pictures show <b>only the designs Rachit chose</b>, at phone width (390px). The older mockup files show all the options side by side. <b>If anything here differs from those, these pictures win.</b> Every size and behaviour is also written below and in the main brief. <b>Laptops and tablets must not change.</b> All of this applies to phone widths only (up to 640px).</p>
+
+<div class="rule" style="margin:14px 0 0"><b>Live files, one per design (open these in a browser, they work):</b>
+<ul style="margin:8px 0 0 18px;max-width:none">
+<li><a href="phone-navigation-bottom-sheet.html">phone-navigation-bottom-sheet.html</a> — tap the menu button, switch the bar look.</li>
+<li><a href="phone-headline-rachit.html">phone-headline-rachit.html</a> — tap the letters.</li>
+<li><a href="phone-testimonials.html">phone-testimonials.html</a> — the real cards, moving and centred.</li>
+</ul>The pictures below are the same designs as stills.</div>
+<h2>1 — Phone navigation: the bottom sheet</h2>
+<div class="shots">
+  <figure><img src="1-navigation-closed-over-hero.png" alt="Closed over the dark top"><figcaption>Closed, over the dark top of the page. Transparent bar, white text.</figcaption></figure>
+  <figure><img src="2-navigation-open.png" alt="Open"><figcaption>Open. The page behind dims, and the menu button becomes an X.</figcaption></figure>
+  <figure><img src="3-navigation-closed-after-scrolling.png" alt="Closed after scrolling"><figcaption>Closed, after scrolling. The bar turns light with dark text.</figcaption></figure>
+</div>
+<ul>
+  <li><b>Closed:</b> the logo on the left and a menu button (three lines) on the right, with a tap area of at least 44 × 44px. There is no separate "Get in touch" button in the bar.</li>
+  <li><b>Open:</b> the page dims. The bar stays visible and the menu button becomes an X. A panel slides up from the bottom with rounded top corners (about 20px) and a small handle. It has four rows, My work, About me, Playground and Visitor gallery, each 56px tall with a thin divider. The current page has a small terracotta dot. At the bottom is a full-width dark "Get in touch" button, 52px tall and fully rounded.</li>
+  <li><b>Bar colours:</b> transparent with white text over the dark top of the page, and light with dark text only once "Some Things I made" reaches the nav. These are the existing rules and they don't change.</li>
+  <li><b>Closing:</b> tap the X, tap the dimmed area, tap a link, or press Escape.</li>
+</ul>
+
+<h2>2 — The RACHIT headline: one row, the word underneath</h2>
+<div class="shots">
+  <figure><img src="4-headline-crafting.png" alt="Headline, Crafting"><figcaption>"Crafting" showing. The letter C is lit.</figcaption></figure>
+  <figure><img src="4-headline-human-centered.png" alt="Headline, Human-centered"><figcaption>"Human-centered" showing. The letter H is lit.</figcaption></figure>
+</div>
+<ul>
+  <li><b>The letters:</b> all six sit in one row across the full screen width with a 16px margin each side (text size about 92px on a 390px phone), scaling so all six fit on every phone width from about 360px up. They keep the laptop look: cream with a terracotta offset shadow, and the active letter in terracotta with a soft light shadow.</li>
+  <li><b>The word:</b> under the row, one at a time, about 30px below it, at about 36px. Its first letter is cream and bold and the rest is terracotta.</li>
+  <li><b>Behaviour:</b> it cycles through the six words by itself every 1.4 seconds. Tapping a letter shows that word and holds it for 4 seconds, then the cycle carries on. Each letter needs a tap area of at least 44px wide, including the narrow "I".</li>
+  <li><b>The sticker</b> in the top right says "Tap a letter!" (on the laptop it still says "Hover over!"). <b>The line at the bottom</b> wraps onto two lines, centred.</li>
+</ul>
+
+<h2>3 — Testimonial cards on phones</h2>
+<div class="shots">
+  <figure style="width:320px"><img style="width:320px" src="5-testimonials-first-card.png" alt="Testimonials, first card"><figcaption>The first card, centred. The next card peeks in from the right.</figcaption></figure>
+  <figure style="width:320px"><img style="width:320px" src="6-testimonials-emeka-card.png" alt="Testimonials, Emeka"><figcaption>A card in the middle, with a neighbour on each side. The whole quote shows.</figcaption></figure>
+</div>
+<ul>
+  <li><b>Width:</b> the screen width minus 36px each side (318px on a 390px phone).</li>
+  <li><b>Centred:</b> the front card is centred, including the first card. The neighbouring cards show at the edges, tilted and faded, as on the laptop.</li>
+  <li><b>Height:</b> the cards grow to fit their text, all the same height, never less than today's 420px. <b>No quote may be cut off.</b></li>
+  <li><b>Unchanged:</b> the look of the cards (colours, accent bar, fonts, tick), the auto-advance and pause-on-hover.</li>
+</ul>
+
+<div class="rule">Always show Rachit a before and after on a phone-sized screen before any of these go live.</div>
+</body>
+</html>

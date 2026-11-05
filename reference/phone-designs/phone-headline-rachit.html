@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone headline — RACHIT, one row with the word underneath</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--paper:#f9f7f2;--p2:#f0ede8;--ink:#18181b;--ink2:#3f3f46;--ink3:#6b6b73;--bd:rgba(24,24,27,.10);
+  --tc:#c8593e;--tct:#9c3f29;--fh:'Baloo 2',sans-serif;--fb:'DM Sans',sans-serif;--fm:'Space Mono',monospace;
+  --espr:cubic-bezier(.34,1.56,.64,1);--eout:cubic-bezier(.22,.61,.36,1);}
+body{background:#e4e1db;font-family:var(--fb);color:var(--ink2);padding:28px 24px 56px;display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;}
+.col{width:390px;flex:none;}
+.notes{max-width:520px;}
+h1{font-family:var(--fh);font-weight:800;font-size:24px;color:var(--ink);margin-bottom:6px;}
+.lead{font-size:13.5px;line-height:1.6;margin-bottom:14px;}
+.lead b{color:var(--tct);}
+.notes ul{margin:8px 0 0 18px;}
+.notes li{font-size:13.5px;line-height:1.6;margin-bottom:6px;}
+.notes h2{font-family:var(--fh);font-weight:800;font-size:17px;color:var(--ink);margin:18px 0 4px;}
+.chip{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;padding:7px 12px;border-radius:14px;border:1.5px solid rgba(24,24,27,.25);background:none;color:var(--ink3);cursor:pointer;}
+.chip.on{background:var(--ink);color:#f9f7f2;border-color:var(--ink);}
+.ctl{display:flex;gap:8px;margin-bottom:12px;}
+@media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;}}
+
+.phone{position:relative;width:390px;height:700px;overflow:hidden;border-radius:22px;border:1.5px solid rgba(24,24,27,.22);background:var(--ink);user-select:none;-webkit-user-select:none;}
+.bar{position:absolute;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 18px;z-index:5;color:#f9f7f2;}
+.logo{font-family:var(--fh);font-weight:800;font-size:20px;letter-spacing:-.01em;color:#f9f7f2;}
+.logo i{font-style:normal;color:var(--tc);}
+.menu{width:44px;height:44px;display:flex;align-items:center;justify-content:center;}
+.menu svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;stroke-linecap:round;fill:none;}
+.sticker{position:absolute;top:80px;right:18px;z-index:5;background:var(--tc);color:#fff;font-family:var(--fm);font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:6px;}
+.sub{position:absolute;left:28px;right:28px;bottom:30px;text-align:center;font-size:15px;line-height:1.5;color:rgba(249,247,242,.55);z-index:4;}
+.sub .hl{color:#f9f7f2;font-weight:500;}
+.head{position:absolute;left:16px;right:16px;top:50%;transform:translateY(-50%);}
+.row{display:flex;justify-content:space-between;align-items:baseline;}
+.L{font-family:var(--fh);font-weight:800;color:#f9f7f2;line-height:.86;letter-spacing:-.03em;display:inline-block;cursor:pointer;font-size:92px;padding:0 1px;background:none;border:none;position:relative;
+   text-shadow:4px 5px 0 var(--tc);transition:color .2s ease-out,text-shadow .3s var(--espr),transform .3s var(--espr);-webkit-tap-highlight-color:transparent;}
+.L::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:max(100%,44px);transform:translateX(-50%);}   /* invisible tap area, at least 44px wide */
+.L.on{color:var(--tc);text-shadow:6px 6px 0 rgba(249,247,242,.14);transform:translateX(-2px);}
+.L:focus-visible{outline:2px solid var(--tc);outline-offset:4px;border-radius:6px;}
+.word{margin-top:30px;font-size:36px;line-height:1.1;color:var(--tc);min-height:44px;font-weight:400;}
+.word b{font-weight:700;color:#f9f7f2;}
+</style></head><body>
+
+<div class="col">
+  <div class="phone">
+    <div class="bar"><div class="logo">Ra<i>Pa</i></div><div class="menu"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg></div></div>
+    <div class="sticker">Tap a letter!</div>
+    <div class="head" role="group" aria-label="RACHIT — Researching And Crafting Human-centered Interactions That matter."><div class="row" id="row"></div><div class="word" id="word" aria-live="polite"></div></div>
+    <p class="sub"><span class="hl">Former radio show host</span> — always someone who listens first.</p>
+  </div>
+</div>
+
+<div class="col notes">
+  <h1>RACHIT headline on phones — one row, the word underneath</h1>
+  <p class="lead">The chosen phone version of the headline. <b>It is live. Tap the letters.</b> This file shows only the chosen version at the real phone width of 390px. <b>Phone widths only (up to 640px). The laptop version doesn't change.</b></p>
+  <h2>What to build</h2>
+  <ul>
+    <li><b>The letters:</b> all six sit in one row across the full screen width, with a 16px margin each side (text size about 92px on a 390px phone). They must scale so all six fit on every phone width from about 360px up. They keep the laptop look: cream with a terracotta offset shadow, and the active letter in terracotta with a soft light shadow.</li>
+    <li><b>The word:</b> underneath the row, one at a time, about 30px below it, at about 36px. Its first letter is cream and bold, and the rest is terracotta.</li>
+    <li><b>Behaviour:</b> it cycles through the six words by itself every 1.4 seconds, as on the laptop. Tapping a letter shows that word and holds it for 4 seconds, then the cycle carries on. Each letter needs a tap area at least 44px wide, including the narrow "I".</li>
+    <li><b>The sticker</b> says "Tap a letter!" on phones. On the laptop it still says "Hover over!".</li>
+    <li><b>The line at the bottom</b> wraps onto two lines, centred.</li>
+    <li><b>Accessibility:</b> the headline keeps its full-sentence label. The letters are buttons with clear names. If "reduced motion" is on, the automatic cycle stays off and a tap is the only way to change the word.</li>
+  </ul>
+</div>
+
+<script>
+const LET=['R','A','C','H','I','T'];
+const FULL=['Researching','And','Crafting','Human-centered','Interactions','That matter.'];
+const row=document.getElementById('row'), word=document.getElementById('word');
+const letters=LET.map((l,i)=>{const b=document.createElement('button');b.className='L';b.textContent=l;b.setAttribute('aria-label',l+', '+FULL[i]);b.onclick=()=>pick(i);row.appendChild(b);return b;});
+let idx=0, timer=null, hold=null;
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function render(){ letters.forEach((el,i)=>el.classList.toggle('on',i===idx)); word.innerHTML='<b>'+FULL[idx][0]+'</b>'+FULL[idx].slice(1); }
+function stop(){ if(timer){clearInterval(timer);timer=null;} }
+function start(){ stop(); if(!reduce) timer=setInterval(()=>{idx=(idx+1)%6;render();},1400); }
+function pick(i){ idx=i; render(); stop(); clearTimeout(hold); hold=setTimeout(start,4000); }
+render(); start();
+</script>
+</body></html>

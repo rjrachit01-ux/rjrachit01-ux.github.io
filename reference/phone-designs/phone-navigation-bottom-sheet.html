@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone navigation — bottom sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--paper:#f9f7f2;--p2:#f0ede8;--ink:#18181b;--ink2:#3f3f46;--ink3:#6b6b73;--bd:rgba(24,24,27,.10);
+  --tc:#c8593e;--tct:#9c3f29;--fh:'Baloo 2',sans-serif;--fb:'DM Sans',sans-serif;--fm:'Space Mono',monospace;
+  --eout:cubic-bezier(.22,.61,.36,1);}
+body{background:#e4e1db;font-family:var(--fb);color:var(--ink2);padding:28px 24px 56px;}
+h1{font-family:var(--fh);font-weight:800;font-size:24px;color:var(--ink);margin-bottom:6px;}
+.lead{font-size:13.5px;line-height:1.6;margin-bottom:28px;max-width:1240px;}
+.lead b{color:var(--tct);}
+h2{font-family:var(--fh);font-weight:800;font-size:19px;color:var(--ink);margin:40px 0 6px;}
+.note{font-size:13.5px;line-height:1.6;max-width:900px;}
+.note b{color:var(--tct);}
+ul{margin:10px 0 0 20px;max-width:900px;}
+li{font-size:13.5px;line-height:1.6;margin-bottom:6px;}
+
+/* three panels side by side */
+.panels{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;}
+.panel{display:flex;flex-direction:column;gap:8px;}
+.cap{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.10em;color:var(--ink3);}
+
+/* one phone frame */
+.phone{position:relative;width:390px;height:700px;overflow:hidden;border-radius:22px;border:1.5px solid rgba(24,24,27,.22);}
+
+/* backgrounds */
+.bg-hero{position:absolute;inset:0;background:#18181b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+.bg-hero i{font-style:normal;font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:rgba(249,247,242,.28);}
+.bg-hero b{display:block;width:210px;height:8px;border-radius:4px;background:rgba(249,247,242,.14);}
+.bg-work{position:absolute;inset:0;background:var(--paper);padding:92px 18px 0;}
+.bg-work .lab{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3);}
+.bg-work .hd{font-family:var(--fh);font-weight:800;font-size:28px;line-height:1.15;color:var(--ink);margin:12px 0 28px;}
+.bg-work .card{height:170px;border-radius:10px;background:linear-gradient(135deg,#e6f3ed,#cfe8de);border:1.5px solid var(--bd);}
+
+/* top bar */
+.bar{position:absolute;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 18px;z-index:20;}
+.logo{font-family:var(--fh);font-weight:800;font-size:20px;letter-spacing:-.01em;}
+.logo i{font-style:normal;color:var(--tc);}
+.menu-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;border-radius:50%;}
+.menu-btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;stroke-linecap:round;fill:none;}
+/* dark top — white text, transparent bar */
+.bar-dk{color:#f9f7f2;}
+.bar-dk .logo{color:#f9f7f2;}
+/* light after scrolling — dark text, paper background */
+.bar-lt{color:var(--ink);background:rgba(249,247,242,.96);border-bottom:1px solid var(--bd);}
+.bar-lt .logo{color:var(--ink);}
+
+/* dim overlay (open state only) */
+.dim{position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:30;}
+
+/* bottom sheet */
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--paper);border-radius:20px 20px 0 0;z-index:40;padding:10px 24px 28px;}
+.sheet .grab{width:38px;height:4px;border-radius:2px;background:rgba(24,24,27,.18);margin:0 auto 6px;}
+.sheet a{display:flex;align-items:center;justify-content:space-between;height:56px;border-bottom:1px solid var(--bd);font-size:17px;font-weight:500;color:var(--ink2);text-decoration:none;}
+.sheet a.on{color:var(--ink);font-weight:700;}
+.sheet a.on::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--tc);}
+.sheet .big{margin-top:18px;height:52px;border-radius:26px;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;}
+
+/* interactive phone (fourth, live) */
+.chip{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;padding:7px 12px;border-radius:14px;border:1.5px solid rgba(24,24,27,.25);background:none;color:var(--ink3);cursor:pointer;}
+.chip.on{background:var(--ink);color:#f9f7f2;border-color:var(--ink);}
+.ctl{display:flex;gap:8px;margin-bottom:12px;}
+.phone.interactive .menu-btn{cursor:pointer;}
+.phone.interactive .dim{pointer-events:auto;}
+.phone[data-bg="hero"] .bg-work{display:none;}
+.phone[data-bg="work"] .bg-hero{display:none;}
+.phone.closed .dim,.phone.closed .sheet-wrap{display:none;}
+.phone.open .menu-btn .bars{display:none;}
+.phone.open .menu-btn .x{display:block;}
+.menu-btn .x{display:none;}
+.sheet-wrap{position:absolute;inset:0;z-index:35;pointer-events:none;}
+.sheet-wrap .dim{position:absolute;inset:0;pointer-events:auto;}
+.sheet-wrap .sheet{pointer-events:auto;}
+@media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;}}
+</style>
+</head>
+<body>
+
+<h1>Phone navigation — bottom sheet</h1>
+<p class="lead">The chosen phone navigation, shown in all three states. The fourth panel is live — tap the menu button. <b>Phone widths only (up to 640px). Laptops and tablets don't change.</b></p>
+
+<h2>All three states</h2>
+<div class="panels">
+
+  <!-- 1. CLOSED — over the dark top -->
+  <div class="panel">
+    <span class="cap">1 · Closed — over the dark top</span>
+    <div class="phone">
+      <div class="bg-hero"><i>Hero</i><b></b></div>
+      <div class="bar bar-dk">
+        <div class="logo">Ra<i>Pa</i></div>
+        <div class="menu-btn"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. OPEN — over the dark top, sheet visible -->
+  <div class="panel">
+    <span class="cap">2 · Open — sheet slides up, page dims</span>
+    <div class="phone">
+      <div class="bg-hero"><i>Hero</i><b></b></div>
+      <div class="bar bar-dk" style="z-index:45;">
+        <div class="logo">Ra<i>Pa</i></div>
+        <div class="menu-btn"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></div>
+      </div>
+      <div class="dim"></div>
+      <div class="sheet">
+        <div class="grab"></div>
+        <a class="on">My work</a>
+        <a>About me</a>
+        <a>Playground</a>
+        <a>Visitor gallery</a>
+        <div class="big">Get in touch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. CLOSED — after scrolling, light bar -->
+  <div class="panel">
+    <span class="cap">3 · Closed — after scrolling, light bar</span>
+    <div class="phone">
+      <div class="bg-work">
+        <div class="lab">Some</div>
+        <div class="hd">Things I made. The good ones, obviously.</div>
+        <div class="card"></div>
+      </div>
+      <div class="bar bar-lt">
+        <div class="logo">Ra<i>Pa</i></div>
+        <div class="menu-btn"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. INTERACTIVE — live, tap to open -->
+  <div class="panel">
+    <div class="ctl">
+      <button class="chip on" data-bg="hero">Over the dark top</button>
+      <button class="chip" data-bg="work">After scrolling</button>
+    </div>
+    <div class="phone interactive closed" id="iphone" data-bg="hero">
+      <div class="bg-hero"><i>Hero</i><b></b></div>
+      <div class="bg-work">
+        <div class="lab">Some</div>
+        <div class="hd">Things I made. The good ones, obviously.</div>
+        <div class="card"></div>
+      </div>
+      <div class="bar bar-dk" id="ibar">
+        <div class="logo" id="ilogo">Ra<i>Pa</i></div>
+        <button class="menu-btn" id="iMenuBtn" aria-label="Menu" aria-expanded="false">
+          <svg class="bars" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          <svg class="x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+      </div>
+      <div class="sheet-wrap" id="iWrap">
+        <div class="dim" id="iDim"></div>
+        <div class="sheet" id="iSheet" role="dialog" aria-label="Menu">
+          <div class="grab"></div>
+          <a class="on" href="#" onclick="close_(event)">My work</a>
+          <a href="#" onclick="close_(event)">About me</a>
+          <a href="#" onclick="close_(event)">Playground</a>
+          <a href="#" onclick="close_(event)">Visitor gallery</a>
+          <div class="big" onclick="close_(event)" tabindex="0">Get in touch</div>
+        </div>
+      </div>
+    </div>
+    <span class="cap" style="color:var(--tct)">4 · Interactive — tap the menu button</span>
+  </div>
+
+</div>
+
+<h2>What to build</h2>
+<ul>
+  <li><b>Closed (panels 1 and 3):</b> the logo on the left and a menu button (three lines) on the right, with a tap area of at least 44 × 44px. No separate "Get in touch" button in the bar.</li>
+  <li><b>Open (panel 2):</b> the page behind dims. The bar stays visible and the menu button becomes an X. A panel slides up from the bottom (about 0.35s, cubic-bezier(.22,.61,.36,1)) with rounded top corners (20px) and a small handle (38px wide, 4px tall). Four rows, each 56px tall with a 1px divider: My work, About me, Playground, Visitor gallery. The current page has a small terracotta dot on the right. A full-width dark "Get in touch" block, 52px tall and fully rounded (26px), sits 18px below the last row.</li>
+  <li><b>Bar colours — existing rules, unchanged:</b> transparent with white text over the dark top of the page (panel 1). Light paper background with dark text once "Some Things I made" reaches the nav (panel 3).</li>
+  <li><b>Closing:</b> tap the X, tap the dimmed area, tap a link, or press Escape.</li>
+  <li><b>Accessibility:</b> the button is named "Menu" and reports open or closed. Focus moves into the panel when it opens and returns to the button when it closes. No animation if "reduced motion" is on.</li>
+</ul>
+
+<script>
+const phone=document.getElementById('iphone'), btn=document.getElementById('iMenuBtn'), wrap=document.getElementById('iWrap'), dim=document.getElementById('iDim'), bar=document.getElementById('ibar'), logo=document.getElementById('ilogo');
+function setOpen(open){
+  phone.classList.toggle('open',open); phone.classList.toggle('closed',!open);
+  btn.setAttribute('aria-expanded',String(open));
+  if(open) setTimeout(()=>wrap.querySelector('a').focus(),50); else btn.focus({preventScroll:true});
+}
+function updateBar(){
+  const dk=phone.dataset.bg==='hero';
+  bar.className='bar '+(dk?'bar-dk':'bar-lt'); logo.className='logo';
+}
+btn.addEventListener('click',()=>setOpen(!phone.classList.contains('open')));
+dim.addEventListener('click',()=>setOpen(false));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&phone.classList.contains('open')) setOpen(false); });
+function close_(e){ e.preventDefault(); setOpen(false); }
+document.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{
+  document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===ch));
+  phone.dataset.bg=ch.dataset.bg; updateBar(); if(phone.classList.contains('open')) setOpen(false);
+}));
+updateBar();
+</script>
+</body>
+</html>

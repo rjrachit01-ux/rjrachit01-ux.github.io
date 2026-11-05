@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testimonial cards on phones</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--paper:#f9f7f2;--ink:#18181b;--ink2:#3f3f46;--ink3:#6b6b73;--bd:rgba(24,24,27,.10);
+  --tc:#c8593e;--tct:#9c3f29;--fh:'Baloo 2',sans-serif;--fb:'DM Sans',sans-serif;--fm:'Space Mono',monospace;
+  --espr:cubic-bezier(.34,1.56,.64,1);--eout:cubic-bezier(.22,.61,.36,1);}
+body{background:#e4e1db;font-family:var(--fb);color:var(--ink2);padding:28px 24px 56px;display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;}
+.col{width:390px;flex:none;}
+.notes{max-width:520px;}
+h1{font-family:var(--fh);font-weight:800;font-size:24px;color:var(--ink);margin-bottom:6px;}
+.lead{font-size:13.5px;line-height:1.6;margin-bottom:14px;}
+.lead b{color:var(--tct);}
+.notes ul{margin:8px 0 0 18px;} .notes li{font-size:13.5px;line-height:1.6;margin-bottom:6px;}
+.notes h2{font-family:var(--fh);font-weight:800;font-size:17px;color:var(--ink);margin:18px 0 4px;}
+
+/* ── the real card styles from the site (unchanged) ── */
+.tcard{min-width:340px;max-width:340px;
+  height:420px;
+  border:1.5px solid rgba(249,247,242,.12);border-radius:12px;padding:28px 28px 28px 32px;
+  display:flex;flex-direction:column;gap:0;flex-shrink:0;
+  overflow:hidden;position:relative;
+  transition:transform .48s var(--eout),opacity .48s var(--eout),border-color .2s;
+  transform-origin:center center;}
+/* left border accent — colour set per card via inline style */
+.tcard::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;border-radius:12px 0 0 12px;background:var(--accent,var(--tc));}
+.tcard.active{transform:scale(1) rotate(0deg);opacity:1;border-color:rgba(249,247,242,.22);}
+.tcard.adj-left{transform:scale(0.92) rotate(-6deg) translateX(10px);opacity:0.55;}
+.tcard.adj-right{transform:scale(0.92) rotate(6deg) translateX(-10px);opacity:0.55;}
+.tcard.far{transform:scale(0.85) rotate(-8deg);opacity:0.2;}
+.tcard.far-right{transform:scale(0.85) rotate(8deg);opacity:0.2;}
+/* pull phrase */
+.tpull{font-family:var(--fh);font-weight:700;font-size:16px;color:#f9f7f2;line-height:1.35;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(249,247,242,.08);flex-shrink:0;}
+.ttxt{font-size:13px;color:rgba(249,247,242,.55);line-height:1.65;flex:1;overflow:hidden;}
+.tname{margin-top:14px;padding-top:12px;border-top:1px solid rgba(249,247,242,.08);flex-shrink:0;}
+.tname strong{color:rgba(249,247,242,.88);display:block;margin-bottom:3px;font-family:var(--fh);font-size:15px;font-weight:700;}
+.tname-role{font-family:var(--fm);font-size:12px;color:rgba(249,247,242,.55);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:5px;}
+.tname-rel{font-size:12px;color:var(--tc);font-style:italic;display:flex;align-items:center;gap:6px;}
+.tname-rel-tick{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--tc);color:#fff;font-size:8px;font-style:normal;flex-shrink:0;}
+/* Arrows sit below carousel, centred under middle card */
+.glide-arrows{display:flex;gap:14px;align-items:center;justify-content:center;margin-top:28px;width:fit-content;margin-left:auto;margin-right:auto;}
+.garr{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(249,247,242,.22);background:none;color:rgba(249,247,242,.55);font-size:18px;cursor:none;display:flex;align-items:center;justify-content:center;transition:border-color .18s,color .18s,background .18s;}
+.garr:hover{border-color:rgba(249,247,242,.70);color:#f9f7f2;background:rgba(249,247,242,.10);}
+
+/* ── THE PHONE FIX ──
+   --pw is the screen width. On the real site use the viewport width: 100vw. */
+.frame{--pw:390px;width:var(--pw);background:#18181b;border-radius:22px;border:1.5px solid rgba(24,24,27,.22);overflow:hidden;color:#f9f7f2;padding:80px 0;}
+.tsmall{font-size:14px;color:rgba(249,247,242,.5);margin:0 18px 12px;line-height:1.5;}
+.boxed{display:inline-block;margin:0 18px;border:2.5px solid var(--tc);border-radius:7px;padding:8px 20px;}
+.boxed span{font-family:var(--fh);font-weight:800;font-size:28px;line-height:1.05;color:#f9f7f2;}
+.glide-outer{position:relative;overflow:hidden;padding:44px 0 40px;margin-top:0;}   /* 12 under the heading + 20 + 12 = 32 to the cards, no side space */
+.glide-track{display:flex;gap:20px;align-items:stretch;transition:transform .48s var(--eout);}
+.tcard{min-width:calc(var(--pw) - 72px);max-width:calc(var(--pw) - 72px);height:auto;min-height:420px;}  /* width: screen minus 36 each side; height: grows to fit */
+.tcard .ttxt{overflow:visible;}
+.garr{cursor:pointer;}
+.glide-arrows{margin-top:0;}
+</style></head><body>
+
+<div class="col">
+  <div class="frame" id="frame">
+    <div class="tsmall">What It's Like to Work With Me</div>
+    <div class="boxed"><span>Voices of Collaboration</span></div>
+    <div class="glide-outer" id="outer"><div class="glide-track" id="gtrack">
+<div class="tcard" style="--accent:#c8593e"><div class="tpull">Detail-oriented designer.</div><p class="ttxt">I can confidently say Rachit is a very reliable and detail-oriented designer. He has a great ability to simplify complex ideas and turn them into clean, user-friendly designs. He is also incredibly responsive, thoughtful, listens carefully, asks the right questions, and always delivers on time. A highly recommended designer who is dependable and brings clarity and creativity to the table.</p><div class="tname"><strong>Verena Scheffczyk</strong><span class="tname-role">Partner — Million Labs</span><span class="tname-rel"><span class="tname-rel-tick">✓</span>Verena managed Rachit directly</span></div></div>
+<div class="tcard" style="--accent:#0d9488"><div class="tpull">An asset to any team.</div><p class="ttxt">Rachit is a highly professional and dedicated individual. He always strives to take on extra capabilities, doesn't shy away from learning new things and produces work of a high quality. He is an asset to any team.</p><div class="tname"><strong>Holly Foreman</strong><span class="tname-role">Manager — SS&C Technologies</span><span class="tname-rel"><span class="tname-rel-tick">✓</span>Holly managed Rachit directly</span></div></div>
+<div class="tcard" style="--accent:#c8a55a"><div class="tpull">Valuable research. Thoughtful solutions.</div><p class="ttxt">It was a pleasure to work with Rachit as he brought good experience to the problems we were solving and undertook valuable research to support our needs. He was a great team member who worked very collaboratively with the group and brings great depth of thought to the solutions he designs.</p><div class="tname"><strong>Jim Shirley</strong><span class="tname-role">Founder — FundingHero</span><span class="tname-rel">Jim &amp; Rachit worked in the same team</span></div></div>
+<div class="tcard" style="--accent:#7c9e87"><div class="tpull">Deep understanding of user-focused design.</div><p class="ttxt">Rachit is an outstanding colleague to work with. He got a strong eye for detail and deep understanding of user-focused design. He creates thoughtful, intuitive, and visually engaging designs that adds real value to projects. Beyond his professional skills, he brought great energy to work through his collaboration, openness, and willingness to share knowledge.</p><div class="tname"><strong>Emeka Nnalue</strong><span class="tname-role">Senior Advisor — SS&C Technologies</span><span class="tname-rel">Emeka &amp; Rachit worked in the same team</span></div></div>
+<div class="tcard" style="--accent:#c8593e"><div class="tpull">Dependable and collaborative.</div><p class="ttxt">I found Rachit to be a professional, reliable, and supportive colleague, someone always willing to collaborate and contribute to the team. He is someone who builds strong working relationships and can be counted on to deliver his best. I truly enjoyed working with Rachit and would recommend him to any team looking for a dependable and collaborative professional.</p><div class="tname"><strong>Dorsa Jahani</strong><span class="tname-role">Business Analyst — SS&C Technologies</span><span class="tname-rel">Dorsa &amp; Rachit worked in the same team</span></div></div>
+<div class="tcard" style="--accent:#0d9488"><div class="tpull">Unique ability to connect with masses.</div><p class="ttxt">Rachit is a person who has consistently impressed me. He has been an exceptional talent, knowing exactly what the audience needs with his unique ability to connect with masses. I was impressed to see that he used radio as a medium to bring changes into the society and impact individuals' lives. A team player, always ready to collaborate and share ideas, and a very positive person who is eager to learn.</p><div class="tname"><strong>RJ Teena</strong><span class="tname-role">Programming Head and RJ — MY FM</span><span class="tname-rel">Teena and Rachit worked in the same team</span></div></div>
+<div class="tcard" style="--accent:#c8a55a"><div class="tpull">No doubt that he is a good leader.</div><p class="ttxt">I worked under Rachit, and it was a great learning experience. An incredible mentor who takes stand for the team, thinks out of the box, and has always helped me to work and grow. A good team goes far when there is a good leader — and there is no doubt that he is. A smooth communicator who is always there for the team beyond the position too.</p><div class="tname"><strong>RJ Damini</strong><span class="tname-role">Radio &amp; Podcast Host — Radio City</span><span class="tname-rel">Damini reported to Rachit directly</span></div></div>
+<div class="tcard" style="--accent:#7c9e87"><div class="tpull">Positivity, creativity, collaborative approach.</div><p class="ttxt">I found Rachit a fantastic person who brings positivity, creativity, and a collaborative approach to everything he does, making even the most challenging tasks feel manageable. His ability to support and uplift those around him is something I truly admire. Someone who is always there when you need help.</p><div class="tname"><strong>Manasi Gupta</strong><span class="tname-role">Associate Producer — ABP News Network</span><span class="tname-rel">Manasi and Rachit worked in the same team</span></div></div>
+    </div></div>
+    <div class="glide-arrows" id="arrows"><button class="garr" id="prev" aria-label="Previous">←</button><button class="garr" id="next" aria-label="Next">→</button></div>
+  </div>
+</div>
+
+<div class="col notes">
+  <h1>Testimonial cards on phones</h1>
+  <p class="lead">The chosen phone version. It uses the site's real card styles and all eight real testimonials, and <b>it is live</b>: it moves by itself and you can use the arrows. This file shows only the chosen version at the real phone width of 390px. <b>Phone widths only. Laptops and tablets don't change.</b></p>
+  <h2>What to build</h2>
+  <ul>
+    <li><b>Width:</b> the screen width minus 36px each side (318px on a 390px phone), instead of the fixed 340px.</li>
+    <li><b>Centred:</b> the front card is centred, including the first card. The neighbouring cards show at the edges, tilted and faded, as on the laptop.</li>
+    <li><b>Height:</b> the cards grow to fit their text, all to the same height (the tallest card's), never less than today's 420px. <b>No quote may be cut off.</b> On the laptop the 340px card keeps its fixed height. Rachit is trimming Emeka's quote himself.</li>
+    <li><b>The sliding calculation</b> on the site has the card width and gap built in (340 + 20). On phones it must use the real card width, and centre the front card. The side space around the carousel (60px each side) is removed on phones. See the script at the bottom of this file for a working version.</li>
+    <li><b>Space:</b> 32px from the heading box to the cards, and 80px above and below the section, as in the spacing standard.</li>
+    <li><b>Unchanged:</b> the look of the cards (colours, accent bar, fonts, tick), the auto-advance every 2 seconds, and pause while the mouse is over the cards or arrows.</li>
+    <li><b>Not decided yet:</b> touch behaviour (swipe left or right, and tap to pause). Ask Rachit before building it.</li>
+  </ul>
+</div>
+
+<script>
+let gIdx=0, timer=null;
+const track=document.getElementById('gtrack'), outer=document.getElementById('outer');
+const cards=[...track.querySelectorAll('.tcard')];
+function applyTClasses(){
+  cards.forEach((c,i)=>{
+    c.classList.remove('active','adj-left','adj-right','far','far-right');
+    const d=i-gIdx;
+    if(d===0)c.classList.add('active'); else if(d===-1)c.classList.add('adj-left'); else if(d===1)c.classList.add('adj-right');
+    else if(d<-1)c.classList.add('far'); else c.classList.add('far-right');
+  });
+  const cw=cards[0].offsetWidth, gap=20;                                  // real card width, not a fixed 340
+  const offset=gIdx*(cw+gap)-(outer.offsetWidth/2-cw/2);                  // centres the front card, also the first one
+  track.style.transform='translateX('+(-offset)+'px)';
+}
+function advance(){ gIdx=(gIdx+1)%cards.length; applyTClasses(); }
+function startAuto(first){ stopAuto(); timer=setTimeout(()=>{advance(); timer=setInterval(advance,2000);}, first===undefined?2000:first); }
+function stopAuto(){ if(timer){clearTimeout(timer);clearInterval(timer);timer=null;} }
+document.getElementById('next').onclick=()=>{ gIdx=(gIdx+1)%cards.length; applyTClasses(); startAuto(); };
+document.getElementById('prev').onclick=()=>{ gIdx=(gIdx-1+cards.length)%cards.length; applyTClasses(); startAuto(); };
+[outer,document.getElementById('arrows')].forEach(el=>{ el.addEventListener('mouseenter',stopAuto); el.addEventListener('mouseleave',()=>startAuto()); });
+applyTClasses(); startAuto(1500);
+window.addEventListener('resize',applyTClasses);
+</script>
+</body></html>
