@@ -465,6 +465,23 @@ button{font-family:var(--fb);cursor:none;border:none;background:none;}
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 </style>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey:"AIzaSyAn2bDFwZCrfuiKhHnoPA-Ri_tFZ3MkCg8",
+  authDomain:"rachit-portfolio-website.firebaseapp.com",
+  projectId:"rachit-portfolio-website",
+  storageBucket:"rachit-portfolio-website.firebasestorage.app",
+  messagingSenderId:"990293977408",
+  appId:"1:990293977408:web:33e72010944c9cc40eb2a5",
+  measurementId:"G-Z1L8VJK4FP"
+});
+const db=firebase.firestore();
+firebase.analytics();
+</script>
 </head>
 <body>
 <div id="cur"></div>
@@ -1317,9 +1334,7 @@ let obPrevPage='entry';
 /* ONBOARDING */
 let obClr={bg:'#18181b',tx:'#f9f7f2'};
 function initOb(){
-  const ex=JSON.parse(localStorage.getItem('visitors')||'[]');
-  const n=ex.length+1;
-  document.getElementById('vc-num').textContent='#'+String(n).padStart(3,'0');
+  document.getElementById('vc-num').textContent='#???';
   document.getElementById('vc-date').textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
   ['inp-n','inp-r'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('vc-name').textContent='Your name';
@@ -1331,6 +1346,10 @@ function initOb(){
   document.querySelectorAll('.cdot').forEach((b,i)=>b.classList.toggle('sel',i===0));
   obClr={bg:'#18181b',tx:'#f9f7f2'};
   const v=document.getElementById('vc-el');v.style.background=obClr.bg;v.style.color=obClr.tx;
+  db.collection('visitors').get().then(snap=>{
+    const n=snap.size+1;
+    document.getElementById('vc-num').textContent='#'+String(n).padStart(3,'0');
+  }).catch(()=>{});
   setTimeout(()=>document.getElementById('inp-n')?.focus(),100);
 }
 function obUpd(){
@@ -1344,41 +1363,49 @@ function obCol(btn,bg,tx){
   document.querySelectorAll('.cdot').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');
   obClr={bg,tx};const v=document.getElementById('vc-el');v.style.background=bg;v.style.color=tx;
 }
+const BAD_WORDS=['fuck','shit','ass','bitch','cunt','dick','cock','pussy','nigger','faggot','retard','whore','slut'];
+function hasBadWord(s){const l=s.toLowerCase();return BAD_WORDS.some(w=>l.includes(w));}
 function obSubmit(){
   const n=document.getElementById('inp-n').value.trim();if(!n)return;
+  if(hasBadWord(n)||hasBadWord(document.getElementById('inp-r').value)){alert('Please keep it friendly.');return;}
   const r=document.getElementById('inp-r').value.trim();
-  const ex=JSON.parse(localStorage.getItem('visitors')||'[]');
-  const num=ex.length+1;
   const cm={'#18181b':'ink','#c8593e':'tc','#0d9488':'teal','#c8a55a':'sand'};
-  const myId=Date.now();
-  const entry={id:myId,name:n,role:r||null,num,colour:cm[obClr.bg]||'ink',colourBg:obClr.bg,colourText:obClr.tx,date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
-  localStorage.setItem('visitors',JSON.stringify([...ex,entry]));
-  localStorage.setItem('myCardId',String(myId));
-  gp('home');
+  const myId=String(Date.now());
+  document.getElementById('ob-sub').disabled=true;
+  db.collection('visitors').get().then(snap=>{
+    const num=snap.size+1;
+    const entry={id:myId,name:n,role:r||null,num,colour:cm[obClr.bg]||'ink',colourBg:obClr.bg,colourText:obClr.tx,date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),ts:firebase.firestore.FieldValue.serverTimestamp()};
+    return db.collection('visitors').doc(myId).set(entry);
+  }).then(()=>{
+    localStorage.setItem('myCardId',myId);
+    gp('home');
+  }).catch(()=>{document.getElementById('ob-sub').disabled=false;alert('Could not save your card. Please try again.');});
 }
 
 /* GALLERY */
 function renderGal(){
-  const vs=JSON.parse(localStorage.getItem('visitors')||'[]');
   const myId=localStorage.getItem('myCardId');
-  const hasMyCard=myId&&vs.some(v=>String(v.id)===myId);
-  const leaveEl=document.getElementById('gal-leave');
-  leaveEl.style.display=hasMyCard?'none':'block';
-  const countEl=document.getElementById('gal-count');
-  if(vs.length>=20){countEl.textContent=`${vs.length} visitor${vs.length!==1?'s':''} so far.`;countEl.style.display='block';}else{countEl.style.display='none';}
   const c=document.getElementById('gal-grid');
-  c.innerHTML='';
-  if(vs.length===0){return;}
-  c.innerHTML='';
-  [...vs].reverse().forEach(v=>{
-    const card=document.createElement('div');card.className='gcard';
-    card.style.background=v.colourBg;card.style.color=v.colourText;
-    const isYou=myId&&String(v.id)===myId;
-    if(isYou){card.style.zIndex='2';card.style.paddingTop='28px';}
-    const num=v.num?'#'+String(v.num).padStart(3,'0'):'';
-    card.innerHTML=(isYou?'<div class="gcard-you">That\'s you.</div>':'')+`<div class="gcard-site"><span>Rachit Patni</span><span>${num}</span></div><div class="gcard-name">${eh(v.name)}</div>${v.role?`<div class="gcard-role">${eh(v.role)}</div>`:''}<div class="gcard-date">${v.date}</div>`;
-    c.appendChild(card);
-  });
+  const countEl=document.getElementById('gal-count');
+  const leaveEl=document.getElementById('gal-leave');
+  c.innerHTML='<p style="color:var(--ink3);font-size:14px;padding:20px 0;">Loading cards…</p>';
+  db.collection('visitors').orderBy('ts','desc').get().then(snap=>{
+    const vs=snap.docs.map(d=>d.data());
+    const hasMyCard=myId&&vs.some(v=>String(v.id)===myId);
+    leaveEl.style.display=hasMyCard?'none':'block';
+    if(vs.length>=20){countEl.textContent=`${vs.length} visitor${vs.length!==1?'s':''} so far.`;countEl.style.display='block';}else{countEl.style.display='none';}
+    c.innerHTML='';
+    if(vs.length===0){return;}
+    vs.forEach(v=>{
+      const card=document.createElement('div');card.className='gcard';
+      card.style.background=v.colourBg;card.style.color=v.colourText;
+      const isYou=myId&&String(v.id)===myId;
+      if(isYou){card.style.zIndex='2';card.style.paddingTop='28px';}
+      const num=v.num?'#'+String(v.num).padStart(3,'0'):'';
+      card.innerHTML=(isYou?'<div class="gcard-you">That\'s you.</div>':'')+`<div class="gcard-site"><span>Rachit Patni</span><span>${num}</span></div><div class="gcard-name">${eh(v.name)}</div>${v.role?`<div class="gcard-role">${eh(v.role)}</div>`:''}<div class="gcard-date">${v.date}</div>`;
+      c.appendChild(card);
+    });
+  }).catch(()=>{c.innerHTML='<p style="color:var(--ink3);font-size:14px;padding:20px 0;">Could not load cards right now.</p>';});
 }
 function eh(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
