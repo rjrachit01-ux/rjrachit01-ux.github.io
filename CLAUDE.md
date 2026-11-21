@@ -37,6 +37,7 @@ Paste this whole file into Claude Code at the start of the session. Then ask Cla
 5. **One master copy.** From now on the repository is the master. If Rachit changes something in his chat with Claude, he will hand you the exact change or the updated file. Do not overwrite it with an older copy.
 6. Rachit is not a developer. Keep questions to him short and give a clear recommendation with each.
 7. **For any visual change, show a before and after first** and wait for Rachit's approval before changing the site. He will ask for this every time, but do it without being asked.
+8. **Never deploy to Netlify without Rachit's explicit approval.** Test locally first, confirm the fix works, then wait for Rachit to say yes before uploading to Netlify. No exceptions.
 
 ## 1.5 Ask Rachit these at the start of the session
 
@@ -227,3 +228,24 @@ These make every later change, small or large, safe and reversible.
 | `link-preview-image.jpg` / `link-preview-image.png` | The final 1200 × 630 preview picture, ready to put in the site. |
 | `favicon.svg` and `favicon-*.png` | The final tab icon at all required sizes. |
 | `link-preview-explainer.html` | Background explainer showing what a link preview is. For reference only. |
+
+---
+
+## Session notes (2026-11-05)
+
+**Decisions confirmed this session:**
+- Tablets: use the phone tap version of the RACHIT headline (not the laptop hover version)
+- Emeka's quote: applied (shortened version, see commit)
+- Photos: leave About photo placeholder blank until Rachit sends; leave "What shaped me" slides blank until Rachit sends
+- Case studies: Rachit will confirm which are ready after all other work is done
+- Hosting/domain: Rachit will confirm, do not publish with domain placeholder in link preview HTML
+
+**What's left to build (in order):**
+1. Phone overflow fixes (section 2.5) — show before/after first
+2. Phone navigation — bottom sheet (section 2.9.1) — show before/after first
+3. RACHIT headline on phones AND tablets — tap version (section 2.9.2) — show before/after first
+4. Navigation bugs (section 2.6) — no visual design change
+5. Visitor gallery database — give Rachit 3 options in plain words, he picks
+6. Link preview HTML — prepare now, add domain when confirmed (section 2.4)
+7. Photos — when Rachit sends them (sections 2.1, 2.2)
+8. Case studies — when Rachit is ready (section 2.3)

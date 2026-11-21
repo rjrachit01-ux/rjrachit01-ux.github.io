@@ -1,1 +1,13 @@
 .DS_Store
+
+# Local Netlify folder
+.netlify
+
+# Claude config
+.claude/
+
+# Old source/draft files
+site/Final Case Study Skin Buddy.html
+site/Skin-Buddy-Thumbnail-Source.html
+site/Prototype/
+site/Statsboost-Case-Study-Final/

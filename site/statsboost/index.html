@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Statsboost — Case study</title>
+    <link rel="stylesheet" href="styles.css?v=player-16x9-2">
+    <link rel="stylesheet" href="results.css">
+    <link rel="stylesheet" href="navigation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+.cs-footer { padding:64px 0 48px; background:var(--paper,#f9f7f2); }
+.cs-footer-inner { max-width:1100px; margin:0 auto; padding:0 64px; display:flex; gap:16px; }
+.cs-footer-inner.single { max-width:860px; }
+.cs-nav-card { display:flex; flex:1; min-width:0; align-items:center; gap:20px; border:1px solid rgba(24,24,27,0.10); border-radius:12px; padding:20px 24px; text-decoration:none; color:inherit; background:#ffffff; transition:box-shadow 0.2s,border-color 0.2s; }
+.cs-nav-card:hover { box-shadow:0 8px 32px rgba(0,0,0,0.08); border-color:rgba(24,24,27,0.20); }
+.cs-nav-card:hover .cs-nav-arrow { color:#9c3f29; }
+.cs-nav-card:hover .cs-nav-arrow.left { transform:translateX(-4px); }
+.cs-nav-card:hover .cs-nav-arrow.right { transform:translateX(4px); }
+.cs-nav-arrow { flex-shrink:0; color:#6b6b73; transition:transform 0.2s,color 0.2s; display:flex; align-items:center; }
+.cs-nav-thumb { width:140px; height:96px; border-radius:8px; flex-shrink:0; overflow:hidden; border:1px solid rgba(24,24,27,0.10); }
+.cs-nav-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.cs-nav-text { flex:1; min-width:0; }
+.cs-nav-label { font-family:'Space Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:#6b6b73; margin-bottom:6px; display:block; }
+.cs-nav-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:500; color:#18181b; line-height:1.1; margin-bottom:6px; display:block; }
+.cs-nav-desc { font-family:'DM Sans',sans-serif; font-size:13px; color:#6b6b73; line-height:1.5; display:block; }
+</style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap navi">
+        <a class="nlogo" href="../index.html#home">Ra<span class="a">Pa</span></a>
+        <div class="nlinks">
+          <a class="nlk" href="../index.html#work">My work</a>
+          <a class="nlk" href="../index.html#about">About me</a>
+          <a class="nlk" href="../index.html#playground">Playground</a>
+          <a class="nlk" href="../index.html#gallery">Visitor gallery</a>
+          <a class="ncta" href="../index.html#contact">Get in touch</a>
+        </div>
+        <button class="nmenu-btn" onclick="phNavOpen()" aria-label="Menu" aria-expanded="false"><svg class="nm-bars" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M3 7h18M3 12h18M3 17h18"/></svg><svg class="nm-x" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+      </div>
+    </nav>
+    <main>
+      <section class="section hero">
+        <div class="container">
+          <a onclick="history.back();return false;" href="#" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:rgba(24,24,27,0.40);cursor:pointer;transition:color 0.2s;margin-bottom:40px;" onmouseover="this.style.color='#9c3f29';this.querySelector('.back-arrow').style.transform='translateX(-4px)';" onmouseout="this.style.color='rgba(24,24,27,0.40)';this.querySelector('.back-arrow').style.transform='translateX(0)';">
+            <svg class="back-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;transition:transform 0.2s;">
+              <path d="M19 12H5M12 5L5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;">Back</span>
+          </a>
+          <h1>Redesigning the stats quiz BCU students were already stuck with</h1>
+          <p class="hero-description">A countdown timer, multiple choice, a blunt red cross for every wrong answer — rebuilt into a full game layer, and used to finally test whether a timer's direction or a feedback message's <span class="text-accent">tone</span> actually changes how someone learns.</p>
+          <p class="status-pill">LIVE IN BCU'S CURRICULUM TODAY</p>
+          <div class="metadata-grid">
+            <div>
+              <p class="eyebrow">CLIENT</p>
+              <p>Birmingham City University</p>
+              <p>Psychology department</p>
+              <img class="reference-visual university-logo" src="assets/university-logo.png" alt="Birmingham City University">
+            </div>
+            <div>
+              <p class="eyebrow">TIMELINE</p>
+              <p>5 months, <span class="date-range">Oct 23 - Feb 24</span></p>
+            </div>
+            <div>
+              <p class="eyebrow">TEAM</p>
+              <p>Rachit Patni · UI/UX Designer</p>
+              <p>Nonso Nweke · UI/UX Designer</p>
+              <p>Chloe Woodman · Software Developer</p>
+              <p>Dr Wenge Xu · Project Advisor</p>
+              <p>Dr Angel Tan · Project Co-Advisor</p>
+            </div>
+            <div>
+              <p class="eyebrow">MY ROLE</p>
+              <p>Research Design &amp; Analysis</p>
+              <p>User Testing</p>
+              <p>UI/UX design</p>
+            </div>
+          </div>
+          <p class="eyebrow">THE REDESIGN, AT A GLANCE</p>
+          <div class="visual-grid">
+            <figure>
+              <img class="reference-visual " src="assets/level-overview.png" alt="Statsboost pick your level screen">
+            </figure>
+            <figure>
+              <img class="reference-visual " src="assets/progress-overview.png" alt="Statsboost progress screen">
+            </figure>
+          </div>
+          <p class="eyebrow">PROTOTYPE WALKTHROUGH</p>
+          <div class="sb-video-player" id="sb-video-player">
+<video id="sb-video" playsinline preload="metadata" poster="assets/prototype-approved-poster.jpg"><source src="assets/statsboost-prototype.mp4" type="video/mp4"></video>
+<div class="sb-video-shade"></div>
+<button class="sb-video-control sb-video-toggle" id="sb-video-toggle" aria-label="Play video"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></button>
+<button class="sb-video-control sb-video-fullscreen" id="sb-video-fullscreen" aria-label="Enter fullscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
+<input class="sb-video-progress" id="sb-video-progress" type="range" min="0" max="100" value="0" step=".1" aria-label="Video progress">
+</div>
+        </div>
+      </section>
+      <section class="section ">
+        <div class="container">
+          <p class="eyebrow">THE PROBLEM</p>
+          <h2>It already existed — and using it felt like sitting an exam</h2>
+          <p class="reading-width">The project started from a real problem one of our project's own advisors, Dr Angel Tan, had already run into in her own research — an earlier statistics tool improved scores, but one in five students dropped out before finishing. Games were the proposed fix.</p>
+          <p class="reading-width">StatsBoost wasn't a hypothetical. BCU's Psychology department was already using it with real statistics students.</p>
+          <figure>
+            <img class="reference-visual " src="assets/before-after.png" alt="Original statistics quiz and redesigned quiz, with original shadows and comparison labels">
+          </figure>
+          <div class="main-aside">
+            <div>
+              <ul>
+                <li>Rebuild it into something students would actually want to open — not just tolerate.</li>
+                <li>Use the rebuild to settle a real, open question: <strong class="text-accent">does a timer's direction, or a feedback message's tone, change how well someone learns?</strong>
+                </li>
+              </ul>
+              <div class="panel muted-panel">
+                <p class="eyebrow">WHAT EXISTING TOOLS DIDN'T DO</p>
+                <ul class="cross-list">
+                  <li>Test timer direction and feedback tone as separate, isolated variables — most tools pick one format and never compare.</li>
+                  <li>Feel like a serious game built for university-level content, rather than a quiz with a countdown bolted on.</li>
+                  <li>Give students a reason to open it again the next day, beyond the assignment requiring it.</li>
+                </ul>
+              </div>
+            </div>
+            <aside>
+              <p class="eyebrow">WHAT WE WERE DECIDING</p>
+              <p>Timer counting up, or down? Feedback that just scores you, or one that encourages you? Nobody had isolated these variables before.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section class="section ">
+        <div class="container">
+          <p class="eyebrow">WHAT MADE IT DIFFICULT</p>
+          <h2>Testing two variables cleanly meant a hard tradeoff on sample size</h2>
+          <p class="reading-width">Isolating timer direction from feedback tone meant four separate conditions, so no one person's results were muddied by both variables changing at once.</p>
+          <div class="condition-grid">
+            <div class="panel condition">
+              <strong class="number">10</strong>
+              <p class="eyebrow">TIMER COUNT-UP</p>
+            </div>
+            <div class="panel condition">
+              <strong class="number">10</strong>
+              <p class="eyebrow">TIMER COUNT-DOWN</p>
+            </div>
+            <div class="panel condition">
+              <strong class="number">10</strong>
+              <p class="eyebrow">FEEDBACK BASIC</p>
+            </div>
+            <div class="panel condition">
+              <strong class="number">10</strong>
+              <p class="eyebrow">FEEDBACK MOTIVATIONAL</p>
+            </div>
+          </div>
+          <p class="caption">n=40 total. A between-subject design, each participant experienced only one combination of timer and feedback,not several.</p>
+          <div class="decision-grid">
+            <div class="panel">
+              <p class="eyebrow">CHALLENGE</p>
+              <p>A small per-condition sample meant weaker statistical power: a real difference between groups could exist and still not show up in the results.</p>
+            </div>
+            <div class="panel">
+              <p class="eyebrow">DECISION</p>
+              <p>We kept the small sample but changed how we analysed it: reporting effect sizes alongside clear caveats about statistical power, instead of treating any result as conclusive.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section ">
+        <div class="container">
+          <p class="eyebrow">WHAT OPTIONS WERE CONSIDERED</p>
+          <h2>Two research variables, two design directions, one mascot search</h2>
+          <p class="reading-width">The research side needed timer direction and feedback tone tested against each other. The design side needed its own round of options — a UI direction and a companion character — each with real ones rejected along the way.</p>
+          <div class="subsection">
+            <p class="eyebrow">RESEARCH VARIABLE 1</p>
+            <h3>Timer counting up, or counting down</h3>
+            <div class="visual-grid">
+              <div class="panel">
+                <p class="eyebrow">CONDITION A — COUNT-UP</p>
+                <img class="reference-visual " src="assets/timer-count-up.gif" alt="count up">
+              </div>
+              <div class="panel">
+                <p class="eyebrow">CONDITION B — COUNT-DOWN</p>
+                <img class="reference-visual " src="assets/timer-count-down.gif" alt="count down">
+              </div>
+            </div>
+            <p class="caption">Same question set, same layout — only the timer's direction changed between conditions.</p>
+          </div>
+          <div class="subsection">
+            <p class="eyebrow">RESEARCH VARIABLE 2</p>
+            <h3>Two feedback styles, run head to head</h3>
+            <div class="visual-grid">
+              <div>
+                <p class="eyebrow">CONDITION A — BASIC FEEDBACK</p>
+                <div class="panel feedback-example">
+                  <img class="reference-visual " src="assets/basic-correct.png" alt="basic correct">
+                  <p class="caption">"Correct answer"</p>
+                </div>
+                <div class="panel feedback-example">
+                  <img class="reference-visual " src="assets/basic-incorrect.png" alt="basic incorrect">
+                  <p class="caption">"Incorrect answer"</p>
+                </div>
+              </div>
+              <div>
+                <p class="eyebrow">CONDITION B — MOTIVATIONAL FEEDBACK</p>
+                <div class="panel feedback-example">
+                  <img class="reference-visual " src="assets/motivational-correct.png" alt="motivational correct">
+                  <p class="caption">"Nailed it!"</p>
+                </div>
+                <div class="panel feedback-example">
+                  <img class="reference-visual " src="assets/motivational-incorrect.png" alt="motivational incorrect">
+                  <p class="caption">"So close! Keep going"</p>
+                </div>
+              </div>
+            </div>
+            <div class="decision-grid">
+              <div class="panel">
+                <p class="eyebrow">CHALLENGE</p>
+                <p>Nobody had tested whether the tone of feedback changes motivation, separate from just having feedback at all.</p>
+              </div>
+              <div class="panel">
+                <p class="eyebrow">DECISION</p>
+                <p>Build both, test them against each other, and let the data — not preference — decide which the final product should default to.</p>
+              </div>
+            </div>
+          </div>
+          <div class="subsection">
+            <p class="eyebrow">SCOPING THE RESEARCH INSTRUMENT</p>
+            <p>We compared several standard research questionnaires and scoped down to GEQ’s, whose categories already covered what we needed to measure.</p>
+            <div class="condition-grid">
+              <div class="panel condition">
+                <span class="check" aria-hidden="true">✓</span>
+                <p class="eyebrow">POSITIVE AFFECT</p>
+              </div>
+              <div class="panel condition">
+                <span class="check" aria-hidden="true">✓</span>
+                <p class="eyebrow">NEGATIVE AFFECT</p>
+              </div>
+              <div class="panel condition">
+                <span class="check" aria-hidden="true">✓</span>
+                <p class="eyebrow">CHALLENGE</p>
+              </div>
+              <div class="panel condition">
+                <span class="check" aria-hidden="true">✓</span>
+                <p class="eyebrow">TENSION / ANNOYANCE</p>
+              </div>
+            </div>
+            <p class="caption">Other questionnaire considered were - PSQ/GFM/GEQ/GengQ but dropped as redundant.</p>
+          </div>
+        </div>
+      </section>
+      <section class="section ">
+        <div class="container">
+          <p class="eyebrow">WHY GO FURTHER THAN THE TWO VARIABLES</p>
+          <h2>If games were the fix for drop-out, the UI had to actually feel like one</h2>
+          <p class="reading-width">Testing timer and feedback answered a specific question about learning — but that's still a quiz with a stopwatch, not a game a student chooses to open. The brief's other half — rebuild it into something worth opening — meant designing an actual gamification layer: a companion character, levels with stakes, and reward moments. That's what pushed exploration beyond the two research variables into UI direction and mascot design.</p>
+          <div class="subsection">
+            <p class="eyebrow">DESIGN DIRECTION 1</p>
+            <h3>Two UI directions, considered and rejected</h3>
+            <div class="visual-grid">
+              <figure>
+                <img class="reference-visual " src="assets/rejected-grid.png" alt="Rejected module grid design">
+                <p class="caption">✕ REJECTED — MODULE GRID</p>
+              </figure>
+              <figure>
+                <img class="reference-visual " src="assets/rejected-dashboard.png" alt="Rejected dashboard and chart design">
+                <p class="caption">✕ REJECTED — DASHBOARD + CHART</p>
+              </figure>
+            </div>
+            <div class="decision-grid">
+              <div class="panel">
+                <p class="eyebrow">CHALLENGE</p>
+                <p>Both directions solved the information problem cleanly — clear progress, clean hierarchy, dashboard-grade data clarity — but read like a corporate LMS, not a game a psychology undergrad would want to open voluntarily.</p>
+              </div>
+              <div class="panel">
+                <p class="eyebrow">DECISION</p>
+                <p>Moved to a map-based level layout instead of a dashboard grid — a structure that implies progression and stakes the way a game board does, rather than a report.</p>
+              </div>
+            </div>
+          </div>
+          <div class="subsection">
+            <p class="eyebrow">DESIGN DIRECTION 2</p>
+            <h3>Three mascots, one that actually fit</h3>
+            <p class="reading-width">A companion character needed to feel likable at a glance — without skewing too young or too abstract for a university audience.</p>
+            <div class="mascot-grid">
+              <div>
+                <img class="reference-visual " src="assets/mascot-spark.png" alt="mascot spark">
+                <div class="panel muted-panel">
+                  <p class="eyebrow">✕ SPARK — REJECTED</p>
+                  <p>Read as built for children — the wrong emotional register for undergrads who don't want to feel condescended to.</p>
+                </div>
+              </div>
+              <div>
+                <img class="reference-visual " src="assets/mascot-curve.png" alt="mascot curve">
+                <div class="panel muted-panel">
+                  <p class="eyebrow">✕ CURVE — REJECTED</p>
+                  <p>The silhouette is the concept — which is also the constraint. A bell curve can't raise its arms or tilt head, so it has almost no range as an expressive character.</p>
+                </div>
+              </div>
+              <div>
+                <img class="reference-visual " src="assets/mascot-chip.png" alt="mascot chip">
+                <div class="panel selected-panel">
+                  <p class="eyebrow">✓ CHIP — SELECTED</p>
+                  <p>Chip's body is the same rounded square used throughout the app, it feels like it grew out of the product. Geometric &amp; friendly to carry emotion.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section ">
+        <div class="container">
+          <p class="eyebrow">DESIGN DIRECTION 3</p>
+          <h2>Four gamification decisions, each with a tradeoff accepted</h2>
+          <p class="reading-width">Chip needed a system to live inside — levels, momentum, and reward moments that give the app its game-feel day to day. Shown as isolated elements below, not full screens — the component is the point, not the surrounding layout.</p>
+          <div class="reward-row">
+            <img class="reference-visual " src="assets/level-reward.png" alt="level reward">
+            <div class="decision-grid">
+              <div class="panel">
+                <p class="eyebrow">LEVELS + STAR RATINGS</p>
+                <p>A single long quiz gives no sense of arrival — you're just "still going," nothing to point to and call finished.</p>
+              </div>
+              <div class="panel">
+                <p class="eyebrow">DECISION</p>
+                <p>Broke the weeks into discrete levels with a visible ceiling — 3 stars max — so every session has a defined finish line and a legible score.</p>
+              </div>
+            </div>
+          </div>
+          <p class="caption">COMPLETED LEVEL TILE — 2 OF 3 STARS EARNED</p>
+          <div class="reward-row">
+            <img class="reference-visual " src="assets/streak-reward.png" alt="streak reward">
+            <div class="decision-grid">
+              <div class="panel">
+                <p class="eyebrow">STREAKS + XP</p>
+                <p>Without any cost to skipping a day, nothing pulls a student back tomorrow specifically.</p>
+              </div>
+              <div class="panel">
+                <p class="eyebrow">DECISION</p>
+                <p>A streak creates a small, visible cost to missing a day; XP gives every correct answer a running total that never resets, so effort compounds.</p>
+              </div>
+            </div>
+          </div>
+          <p class="caption">STREAK AND XP PILLS — HEADER BAR, PERSISTENT ACROSS SCREENS</p>
+          <div class="reward-row">
+            <img class="reference-visual " src="assets/chest-reward.png" alt="chest reward">
+            <div class="decision-grid">
+              <div class="panel">
+                <p class="eyebrow">CHEST REVEAL</p>
+                <p>A number changing on screen doesn't feel like anything — it's information, not a moment.</p>
+              </div>
+              <div class="panel">
+                <p class="eyebrow">DECISION</p>
+                <p>Turned the payoff into a small ritual — tap the chest, see the reveal — so finishing a level has a beat of anticipation before the reward.</p>
+              </div>
+            </div>
+          </div>
+          <p class="caption">CHIP PRESENTS THE CHEST — LEVEL-COMPLETE REWARD MOMENT</p>
+          <div class="reward-row">
+            <img class="reference-visual " src="assets/confidence-rating.png" alt="confidence rating">
+            <div class="decision-grid">
+              <div class="panel">
+                <p class="eyebrow">FLASHCARD CONFIDENCE RATING</p>
+                <p>A flat correct/incorrect doesn't capture "got it, and I know it" versus "got it, but I won't remember it tomorrow."</p>
+              </div>
+              <div class="panel">
+                <p class="eyebrow">DECISION</p>
+                <p>Let the student self-rate — still shaky, getting it, nailed it — so their own confidence, not just accuracy, informs what resurfaces later.</p>
+              </div>
+            </div>
+          </div>
+          <p class="caption">CONFIDENCE SELF-RATING — SHOWN AFTER THE ANSWER REVEAL</p>
+          <p class="caption">Known tradeoff across all four: star ratings can overstate mastery on easy content, streaks can guilt more than motivate around a legitimate break, the chest adds a few seconds of friction, and confidence self-rating is self-reported and can be inaccurate.</p>
+          <blockquote class="pilot-quote">"They thought their <span class="text-accent">statistics ability</span> was being graded — not the interface."<p class="eyebrow">— WHAT THE PILOT STUDY TOLD US</p>
+          </blockquote>
+        </div>
+      </section>
+      <section class="section dark-section softer-sidebar">
+        <div class="container">
+          <p class="eyebrow">WHERE WE CHANGED OUR MIND</p>
+          <h2>So we changed the brief before the main study ran</h2>
+          <div class="main-aside">
+            <div>
+              <p>Running a small pilot with four early participants before the main study, we noticed real anxiety before they'd even started — several assumed their statistics ability was being graded, not the interface in front of them.</p>
+              <p>We added a short training video and one explicit line up front: this isn't testing your maths. That single change reduced confusion once the 40-participant main study began.</p>
+            </div>
+            <aside>
+              <p class="eyebrow">PIVOT</p>
+              <p>n=4 - flagged a framing problem which never surfaced elsewhere.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section class="section results-section" id="research-results">
+        <div class="container">
+          <p class="eyebrow">WHAT THE DATA ACTUALLY SAID</p>
+          <h2>Neither variable moved the numbers — and that's a real finding</h2>
+          <p class="reading-width">Across all four sub-scales, timer direction and feedback tone showed no statistically significant difference: having a timer and feedback at all is what drives engagement — not the exact flavour of either.</p>
+          <img class="reference-visual " src="assets/participants.png" alt="Participant interview illustrations">
+          <div class="results-grid">
+            <div class="comparison-block">
+              <p class="eyebrow">TIMER-UP VS. TIMER-DOWN — MEAN RANK BY SUB-SCALE (GEQ, N=40)</p>
+              <div class="bar-chart" role="img" aria-label="Timer-up and timer-down GEQ mean ranks by sub-scale">
+                <div class="chart-row">
+                  <p>Positive affect</p>
+                  <div>
+                    <div class="bar-line">
+                      <meter class="timer-up" min="0" max="20" value="10.5" aria-label="timer-up 10.5">10.5</meter>
+                      <span>10.5</span>
+                    </div>
+                    <div class="bar-line">
+                      <meter class="timer-down" min="0" max="20" value="10.7" aria-label="timer-down 10.7">10.7</meter>
+                      <span>10.7</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="chart-row">
+                  <p>Negative affect</p>
+                  <div>
+                    <div class="bar-line">
+                      <meter class="timer-up" min="0" max="20" value="10.2" aria-label="timer-up 10.2">10.2</meter>
+                      <span>10.2</span>
+                    </div>
+                    <div class="bar-line">
+                      <meter class="timer-down" min="0" max="20" value="10.8" aria-label="timer-down 10.8">10.8</meter>
+                      <span>10.8</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="chart-row">
+                  <p>Challenge</p>
+                  <div>
+                    <div class="bar-line">
+                      <meter class="timer-up" min="0" max="20" value="11.1" aria-label="timer-up 11.1">11.1</meter>
+                      <span>11.1</span>
+                    </div>
+                    <div class="bar-line">
+                      <meter class="timer-down" min="0" max="20" value="9.9" aria-label="timer-down 9.9">9.9</meter>
+                      <span>9.9</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="chart-row">
+                  <p>Tension / annoyance</p>
+                  <div>
+                    <div class="bar-line">
+                      <meter class="timer-up" min="0" max="20" value="11.2" aria-label="timer-up 11.2">11.2</meter>
+                      <span>11.2</span>
+                    </div>
+                    <div class="bar-line">
+                      <meter class="timer-down" min="0" max="20" value="9.9" aria-label="timer-down 9.9">9.9</meter>
+                      <span>9.9</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="legend">
+                <p class="eyebrow timer-up-key">TIMER-UP</p>
+                <p class="eyebrow timer-down-key">TIMER-DOWN</p>
+              </div>
+              <p class="caption">No comparison reached statistical significance across any of the 4 sub-scales [p &gt; 0.05, Mann- Whitney U (a standard test for small samples)].</p>
+            </div>
+            <div class="continuation-block">
+              <div class="panel sample">
+                <p class="eyebrow">SAMPLE</p>
+                <p class="sample-value">n=40, 10 per condition</p>
+              </div>
+              <div class="panel">
+                <p class="eyebrow">WILLING TO KEEP USING IT</p>
+                <div class="retention unified-metric">
+                  <span class="retention-ring" aria-hidden="true"></span>
+                  90%
+                </div>
+                <p class="eyebrow">36 OF 40 SAID YES TO A DIRECT POST-STUDY QUESTION</p>
+                <p class="caption">Separate from the GEQ sub-scales at left — this was a single yes/no retention question, not part of the 4-sub-scale instrument.</p>
+              </div>
+            </div>
+          </div>
+          <div class="visual-grid timer-reactions">
+            <div class="panel">
+              <p class="eyebrow">WHAT TIMER-UP PARTICIPANTS SAID</p>
+              <ul class="reaction-list">
+                <li>
+                  50% felt urgency, but stayed focused</li>
+                <li>
+                  30% called it enjoyable</li>
+                <li>Few felt it led to rush</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <p class="eyebrow">WHAT TIMER-DOWN PARTICIPANTS SAID</p>
+              <ul class="reaction-list">
+                <li>
+                  40% felt pressure that added excitement</li>
+                <li>
+                  30% felt genuine excitement</li>
+              </ul>
+            </div>
+          </div>
+          <div class="metric-grid">
+            <div class="motivational-group">
+              <div class="panel">
+                <p class="eyebrow">MOTIVATIONAL FEEDBACK</p>
+                <strong class="metric">50%</strong>
+                <p class="eyebrow">FOUND IT ENCOURAGING</p>
+              </div>
+              <div class="panel">
+                <p class="eyebrow">MOTIVATIONAL FEEDBACK</p>
+                <strong class="metric">30%</strong>
+                <p class="eyebrow">SAW NO REAL BENEFIT</p>
+              </div>
+            </div>
+            <div class="panel basic-feedback">
+              <p class="eyebrow">BASIC FEEDBACK</p>
+              <strong class="metric">40%</strong>
+              <p class="eyebrow">LIKED THE QUICK, PLAIN REINFORCEMENT</p>
+            </div>
+          </div>
+          <div class="visual-grid quotes">
+            <blockquote class="panel">
+              <p class="quote-text">"The timer kept me focused and created a sense of urgency... it kept me involved in the game."</p>
+              <p class="eyebrow">— P26</p>
+            </blockquote>
+            <blockquote class="panel">
+              <p class="quote-text">"It was distracting — so did not increase engagement for me."</p>
+              <p class="eyebrow">— P15</p>
+            </blockquote>
+            <blockquote class="panel">
+              <p class="quote-text">“I think the timer encouraged concentration but hindered accuracy in responses…. I think the potential for clicking randomly would be decreased.”</p>
+              <p class="eyebrow">— P32</p>
+            </blockquote>
+            <blockquote class="panel">
+              <p class="quote-text">“The presence of these motivational messages did not really have an effect on me…. It did not enhance my engagement, I didn't give much attention to the messages…”</p>
+              <p class="eyebrow">— P19</p>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+      <section class="section ">
+        <div class="container">
+          <p class="eyebrow">WHAT WE CONCLUDED, AND WHAT SHIPPED</p>
+          <h2>The mechanic mattered more than its exact tuning</h2>
+          <dl class="conclusion-list">
+            <div>
+              <dt>Conclusion:</dt>
+              <dd>neither timer direction nor feedback tone significantly changed the scores — but 90% retention backed up the real bet that a game layer, not the format details, is what keeps students coming back.</dd>
+            </div>
+            <div>
+              <dt>What shipped:</dt>
+              <dd>the full gamification layer — Chip, levels, streaks, chest rewards, flashcard confidence ratings — went into BCU's live curriculum build, since it was the redesign itself, not either individual variable, that the retention data validated.</dd>
+            </div>
+            <div>
+              <dt>Timer and feedback defaults:</dt>
+              <dd>with no significant difference between formats, the shipped version defaults to timer count-down and motivational feedback — the combination participants described most positively in open-ended responses, even without statistical backing.</dd>
+            </div>
+            <div>
+              <dt>Accessibility</dt>
+              <dd>Every colour pairing in the design system was verified against WCAG 2.2 AA contrast minimums. Status indicators — correct/incorrect, selected/rejected, use icons and shape, so the interface still reads for colourblind users. Text spacing follows WCAG 2.2's text-spacing criteria.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+      <section class="section ">
+        <div class="container">
+          <div class="main-aside">
+            <div>
+              <p class="eyebrow corrected-label">WHAT'S MISSING FROM THIS STUDY</p>
+              <h2>Stated plainly, not buried</h2>
+              <ul>
+                <li>Participants were recruited from a non-disabled sample, in line with the study's ethical scope at the time.</li>
+                <li>Timer pressure and feedback tone may land very differently for neurodivergent or low-vision learners — this study doesn't tell us how.</li>
+              </ul>
+            </div>
+            <aside>
+              <p class="eyebrow">WHY IT MATTERS</p>
+              <p>The shipped defaults reflect what worked for this group, not a settled answer for everyone.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section class="section " style="border-bottom:none;">
+        <div class="container">
+          <p class="eyebrow">WHAT I'D DO DIFFERENTLY</p>
+          <ul class="reading-width">
+            <li>A larger, more diverse sample to give the timer and feedback comparisons more power to detect real differences, if they exist.</li>
+            <li>An in-person study to remove distractions an online setting forced on this one.</li>
+            <li>A disability-inclusive follow-up before recommending these defaults more broadly — the most important gap here, not an afterthought.</li>
+            <li>A collaborative or competitive mode — challenging classmates instead of only yourself — worth testing once the solo loop is proven.</li>
+            <li>In-game hints for confusing statistical terms, so the quiz doesn't stall on vocabulary rather than the concept being tested.</li>
+          </ul>
+        </div>
+      </section>
+      <footer class="cs-footer" id="case-navigation">
+        <div class="cs-footer-inner">
+          <a class="cs-nav-card" href="../skin-buddy.html">
+            <svg class="cs-nav-arrow left" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M19 12H5M12 5L5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="cs-nav-thumb"><img src="assets/skin-buddy.png" alt="Skin Buddy case study preview"></div>
+            <div class="cs-nav-text">
+              <span class="cs-nav-label">Previous case study</span>
+              <span class="cs-nav-title">Skin Buddy</span>
+              <span class="cs-nav-desc">AI-powered skincare app with personalised skin analysis.</span>
+            </div>
+          </a>
+          <a class="cs-nav-card" href="../replay/">
+            <div class="cs-nav-thumb"><img src="assets/replay.jpg" alt="Replay case study preview"></div>
+            <div class="cs-nav-text">
+              <span class="cs-nav-label">Next case study</span>
+              <span class="cs-nav-title">Replay</span>
+              <span class="cs-nav-desc">Accessibility-first OTT platform redesign mapped to WCAG 2.2.</span>
+            </div>
+            <svg class="cs-nav-arrow right" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12H19M12 19L19 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </footer>
+    </main>
+    <div id="ph-sheet-wrap" aria-hidden="true">
+      <div id="ph-dim"></div>
+      <div id="ph-sheet" role="dialog" aria-label="Navigation menu">
+        <div class="ph-grab"></div>
+        <a class="ph-row" href="../index.html#work">My work</a>
+        <a class="ph-row" href="../index.html#about">About me</a>
+        <a class="ph-row" href="../index.html#playground">Playground</a>
+        <a class="ph-row" href="../index.html#gallery">Visitor gallery</a>
+        <a class="ph-cta" href="../index.html#contact">Get in touch</a>
+      </div>
+    </div>
+    <script>
+    function phNavOpen(){const w=document.getElementById('ph-sheet-wrap');if(!w)return;w.setAttribute('aria-hidden','false');w.classList.add('open');document.body.classList.add('ph-nav-open');document.querySelector('.nmenu-btn')?.setAttribute('aria-expanded','true');}
+    function phNavClose(){const w=document.getElementById('ph-sheet-wrap');if(!w)return;w.setAttribute('aria-hidden','true');w.classList.remove('open');document.body.classList.remove('ph-nav-open');document.querySelector('.nmenu-btn')?.setAttribute('aria-expanded','false');}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')phNavClose();});
+    document.getElementById('ph-dim')?.addEventListener('click',phNavClose);
+    </script>
+    <script>
+(function(){
+
+const video=document.getElementById('sb-video'), player=document.getElementById('sb-video-player'),toggle=document.getElementById('sb-video-toggle'),progress=document.getElementById('sb-video-progress'),fullscreen=document.getElementById('sb-video-fullscreen');
+function sync(){const playing=!video.paused&&!video.ended;player.classList.toggle('playing',playing);toggle.setAttribute('aria-label',playing?'Pause video':video.ended?'Replay video':'Play video');toggle.innerHTML=playing?'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>'}
+toggle.addEventListener('click',async()=>{if(video.paused){if(video.ended)video.currentTime=0;try{await video.play()}catch{sync()}}else video.pause()});toggle.addEventListener('pointerup',e=>{if(e.pointerType==='mouse')toggle.blur()});['play','pause','ended','error'].forEach(e=>video.addEventListener(e,sync));video.addEventListener('timeupdate',()=>{const value=video.duration?video.currentTime/video.duration*100:0;progress.value=value;progress.style.setProperty('--progress',value+'%');progress.setAttribute('aria-valuetext',Math.round(video.currentTime)+' seconds of '+Math.round(video.duration||0)+' seconds')});progress.addEventListener('input',()=>{if(Number.isFinite(video.duration))video.currentTime=progress.value/100*video.duration});fullscreen.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await player.requestFullscreen()}catch{if(video.webkitEnterFullscreen)video.webkitEnterFullscreen()}});document.addEventListener('fullscreenchange',()=>fullscreen.setAttribute('aria-label',document.fullscreenElement?'Exit fullscreen':'Enter fullscreen'));
+
+})();
+</script>
+  </body>
+</html>

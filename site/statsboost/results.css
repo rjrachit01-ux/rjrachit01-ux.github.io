@@ -1,0 +1,184 @@
+/* Approved results-section layout; scoped to prevent changes elsewhere. */
+.results-section {
+  border: 0;
+}
+.results-section .reading-width {
+  margin-bottom: 28px;
+}
+.results-section .results-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 24px;
+  margin: 40px 0;
+}
+.results-section .comparison-block {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 28px;
+}
+.results-section .comparison-block > .eyebrow {
+  color: var(--ink);
+  max-width: 520px;
+  margin-bottom: 28px;
+}
+.results-section .chart-row {
+  grid-template-columns: 130px minmax(0, 1fr);
+  align-items: center;
+  margin-block: 24px;
+}
+.results-section .chart-row p {
+  margin: 0;
+}
+.results-section .bar-line {
+  gap: 16px;
+}
+.results-section .legend {
+  margin-top: 28px;
+  gap: 24px;
+}
+.results-section .legend .eyebrow {
+  margin: 0;
+}
+.results-section .comparison-block > .caption {
+  margin-top: 24px;
+}
+.results-section .continuation-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.results-section .continuation-block > .panel {
+  padding: 24px;
+}
+.results-section .continuation-block > .sample {
+  margin: 0;
+  background: var(--surface);
+}
+.results-section .sample .eyebrow {
+  margin-bottom: 8px;
+}
+.results-section .sample-value {
+  color: var(--ink);
+  margin: 0;
+}
+.results-section .continuation-block > .panel:not(.sample) {
+  flex: 1;
+}
+.results-section .retention {
+  margin-block: 24px;
+}
+.results-section .continuation-block .caption {
+  margin-top: 20px;
+}
+.results-section .timer-reactions {
+  gap: 24px;
+  margin: 0;
+}
+.results-section .timer-reactions > .panel {
+  background: var(--surface);
+  padding: 24px;
+}
+.results-section .timer-reactions .eyebrow {
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.results-section .reaction-list {
+  margin: 0;
+  padding-left: 18px;
+}
+.results-section .reaction-list li {
+  padding-left: 6px;
+  margin-bottom: 12px;
+}
+.results-section .reaction-list li:last-child {
+  margin-bottom: 0;
+}
+.results-section .reaction-list li::marker {
+  color: var(--muted);
+}
+.results-section .metric-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+.results-section .motivational-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.results-section .motivational-group .panel {
+  border: 0;
+  padding: 24px;
+}
+.results-section .motivational-group .panel + .panel {
+  border-left: 1px solid var(--border);
+  border-radius: 0;
+}
+.results-section .basic-feedback {
+  padding: 24px;
+}
+.results-section .metric-grid .eyebrow {
+  margin-bottom: 12px;
+}
+.results-section .metric-grid .eyebrow:last-child {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+.results-section .quotes {
+  margin: 48px 0 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  gap: 32px 24px;
+}
+.results-section .quotes blockquote {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  border: 0;
+  border-left: 2px solid #d6d3cc;
+  border-radius: 0;
+}
+.results-section .quotes .quote-text {
+  margin-bottom: 20px;
+}
+.results-section .quotes .eyebrow {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+@media (max-width: 800px) {
+.results-section .results-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+.results-section .continuation-block {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    align-items: start;
+  }
+}
+@media (max-width: 600px) {
+.results-section .continuation-block,
+.results-section .timer-reactions,
+.results-section .metric-grid,
+.results-section .quotes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+.results-section .comparison-block,
+.results-section .continuation-block > .panel,
+.results-section .timer-reactions > .panel,
+.results-section .basic-feedback {
+    padding: 20px;
+  }
+.results-section .chart-row {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 12px;
+  }
+.results-section .motivational-group {
+    grid-template-columns: minmax(0, 1fr);
+  }
+.results-section .motivational-group .panel + .panel {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+}
