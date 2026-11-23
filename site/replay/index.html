@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
+<head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
@@ -838,7 +837,44 @@ img[src*="gareth-sticky"],img[src*="gareth-carousel"]{aspect-ratio:404/456 !impo
 }
 #ph-sheet-wrap{display:none;}
 </style>
-</head>
+<style>
+/* Review-only role sizes. Expressive quotes, product screenshots and contrast specimens retain their styling. */
+.hero h1{font-size:56px!important}
+.section-head h2{font-size:32px!important}
+.gaps-heading,.persona-block-head h3{font-size:24px!important}
+.persona-card h3,.gap-title,.finding-title,.rule-card .rule-title,.solution-content h4,.h4-sans,.compact-card h5,.sol-body h5,.reflect-col h4,.learned-card h5,#bridge .st h4{font-size:20px!important;line-height:1.4!important}
+.hero-sub,.section-head p{font-size:18px!important;line-height:1.6!important}
+.overview-text p,.overview-list li,.overview-lead,.callout p,.gap-text,.finding-text,.persona-card p,.rule-card,.solution-content p,.decision-line,.compact-card p,.method-line,.decisions-intro,.gaps-sub,.quote-card p,.dark-explain p,.iteration-side p,.reflect-col li,.learned-card p,.sol-body p,.sol-grid.c4 .sol-body p,.next-list li,#bridge .why p{font-size:16px!important;line-height:1.6!important}
+.mono,.field-label,.lab,.wcag-tag,.wcag-tag-sm,.attrib,.attrib-line,.qtag,.src,.cl-label,.cs-nav-label,.stat-source{font-size:12px!important}
+.hero-band-caption,.stat-label,.scope-label,.gap-note,.gap-note-out,.gap-link,.persona-card .cond,.persona-meta .loc,.vis-annot,.notice-card,.who,.ratio-sub,.method-note,.bar-label,.bar-val,.cs-nav-desc,.cs-footer-note,.source-line,#bridge .rb-s{font-size:14px!important;line-height:1.5!important}
+.stat-compact .stat-num,.scope-num{font-size:28px!important}
+table.map td{font-size:16px!important;line-height:1.6!important}table.map th{font-size:14px!important}
+#overview,#problem,#bridge,#persona,#options,#decisions,#validation,#pivot,#reflection{padding:88px 0 0!important;margin-bottom:0!important}
+#reflection{padding-bottom:88px!important}
+.section-head,#decisions .section-head{margin-bottom:32px!important}
+.section-head p{margin-top:16px;margin-bottom:0}
+#decisions .wrap>.persona-block{margin-top:64px!important}
+#decisions .section-head+.persona-block{margin-top:0!important}
+#decisions .persona-block:last-child .kd-split{margin-bottom:24px!important}
+.gap-card,.persona-card,.rule-card,.compact-card,.learned-card,.quote-card{padding:24px}
+.sol-body,.sol-grid.c4 .sol-body,.sol-grid.c2 .sol-body{padding:24px}
+.dark-section{margin-top:64px!important;margin-bottom:0!important;padding-block:64px!important}
+.one-line,#bridge .why p{white-space:normal!important}
+@media(max-width:899px){
+ #overview,#problem,#bridge,#persona,#options,#decisions,#validation,#pivot,#reflection{padding-top:56px!important}
+ #reflection{padding-bottom:56px!important}
+ .section-head h2{font-size:28px!important}
+ .gaps-heading,.persona-block-head h3{font-size:22px!important}
+ .dark-section{margin-top:48px!important;padding-block:48px!important}
+ .map{min-width:660px}.review-table{overflow-x:auto;width:100%}
+}
+@media(max-width:600px){
+ .hero h1{font-size:40px!important}
+ #decisions .wrap>.persona-block{margin-top:48px!important}
+ .gap-card,.persona-card,.rule-card,.compact-card,.learned-card,.quote-card,.sol-body,.sol-grid.c4 .sol-body,.sol-grid.c2 .sol-body{padding:20px}
+ .cs-nav-card{flex-wrap:wrap}.cs-nav-thumb{width:80px;height:60px}.cs-nav-text{flex-basis:calc(100% - 130px)}
+}
+</style><style>.overview-grid>*{min-width:0}@media(max-width:600px){.overview-facts .fact-value{width:auto;flex:1;min-width:0}.fact-row{gap:16px}.overview-grid{grid-template-columns:minmax(0,1fr)}} </style></head>
 <body>
 <nav class="nav">
   <div class="wrap navi">
@@ -1616,7 +1652,7 @@ img[src*="gareth-sticky"],img[src*="gareth-carousel"]{aspect-ratio:404/456 !impo
 </footer>
 <p class="cs-footer-note">Film and TV artwork shown in this case study belongs to its respective owners. It is used for illustrative and educational purposes only, and Replay is a concept project with no affiliation to any of them.</p>
 
-
+<script>document.querySelectorAll('table.map').forEach(t=>{let w=document.createElement('div');w.className='review-table';t.before(w);w.append(t)});</script>
 <div id="ph-sheet-wrap" aria-hidden="true">
   <div id="ph-dim" onclick="phNavClose()"></div>
   <div id="ph-sheet" role="dialog" aria-label="Navigation menu">

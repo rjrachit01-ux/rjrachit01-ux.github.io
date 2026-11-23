@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../favicon-180.png">
     <title>Statsboost — Case study</title>
     <link rel="stylesheet" href="styles.css?v=player-16x9-2">
     <link rel="stylesheet" href="results.css">
@@ -26,7 +29,35 @@
 .cs-nav-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:500; color:#18181b; line-height:1.1; margin-bottom:6px; display:block; }
 .cs-nav-desc { font-family:'DM Sans',sans-serif; font-size:13px; color:#6b6b73; line-height:1.5; display:block; }
 </style>
-  </head>
+  <style>
+/* Review-only typography and StatsBoost spacing. Product artwork and pilot quote stay original. */
+body{font-size:16px;line-height:1.6}
+h1{font-size:56px}h2{font-size:32px}h3{font-size:24px}
+.hero-description,.container>h2+p.reading-width,.subsection>h3+p.reading-width{font-size:18px;line-height:1.6}
+.eyebrow,.metadata-grid .eyebrow,.status-pill{font-size:12px;line-height:1.5}
+.caption,.chart-row p,.bar-line span,.response-pill,.video-note{font-size:14px;line-height:1.5}
+.metadata-grid p{font-size:16px}
+.metric{font-size:40px}.number,.retention{font-size:28px}
+.nav .nlk,.nav .ncta{font-size:14px}
+h1,h2,h3{margin-bottom:20px}
+.subsection{margin-top:56px}.subsection>h3{margin-bottom:20px}
+.panel{padding:24px}.comparison-block{padding:24px}
+.visual-grid,.mascot-grid,.metric-grid{gap:24px}
+.decision-grid,.condition-grid,.visual-grid,.mascot-grid,.metric-grid,.main-aside{margin-top:24px}
+.results-grid{margin-block:40px;gap:24px}
+.chart-row{margin-block:24px}.legend{gap:16px 24px}
+li:last-child{margin-bottom:0}
+@media(max-width:900px){.results-grid{grid-template-columns:minmax(0,1fr)} }
+@media(max-width:600px){
+ h1{font-size:40px}h2{font-size:28px}h3{font-size:22px}
+ .hero-description{font-size:18px}.metric{font-size:32px}
+ .panel,.comparison-block,.continuation-block .panel{padding:20px}
+ .subsection{margin-top:40px}.results-grid{margin-block:24px}
+ .chart-row{grid-template-columns:minmax(0,1fr);gap:8px}
+ .chart-row>p{margin-bottom:0}.bar-line{gap:12px}
+ .date-range{white-space:normal}
+}
+</style><style>.cs-nav-label{font-size:12px}.cs-nav-desc{font-size:14px}@media(max-width:900px){.cs-footer-inner{flex-direction:column;padding-inline:32px}}@media(max-width:600px){.cs-footer-inner{padding-inline:24px}.cs-nav-card{flex-wrap:wrap;gap:16px;padding:20px}.cs-nav-thumb{width:80px;height:64px}.cs-nav-text{flex-basis:calc(100% - 136px)}.cs-nav-card:last-child .cs-nav-text{flex-basis:calc(100% - 116px)}}</style></head>
   <body>
     <nav class="nav">
       <div class="wrap navi">
@@ -591,7 +622,7 @@
       </section>
       <footer class="cs-footer" id="case-navigation">
         <div class="cs-footer-inner">
-          <a class="cs-nav-card" href="../skin-buddy.html">
+          <a class="cs-nav-card" href="../skin-buddy/">
             <svg class="cs-nav-arrow left" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M19 12H5M12 5L5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
