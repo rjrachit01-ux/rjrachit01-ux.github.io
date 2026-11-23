@@ -248,9 +248,9 @@
 .proto-video-wrap{display:flex;justify-content:center;align-items:center;height:780px;}
 .proto-device-shell{display:none;height:100%;align-items:center;justify-content:center;}
 .proto-device-shell.active{display:flex;}
-.proto-phone-frame{width:360px;height:780px;border-radius:28px;overflow:hidden;background:#0D1A12;box-shadow:0 12px 40px rgba(0,0,0,0.32);flex-shrink:0;position:relative;cursor:pointer;}
+.proto-phone-frame{width:360px;height:756.48px;border-radius:28px;overflow:hidden;background:#0D1A12;box-shadow:0 12px 40px rgba(0,0,0,0.32);flex-shrink:0;position:relative;cursor:pointer;}
 .proto-watch-frame{width:280px;height:336px;border-radius:28px;overflow:hidden;background:#0D1A12;box-shadow:0 12px 40px rgba(0,0,0,0.32);flex-shrink:0;position:relative;cursor:pointer;}
-.proto-phone-frame video{width:360px;height:780px;object-fit:cover;display:block;}
+.proto-phone-frame video{width:360px;height:756.48px;object-fit:contain;display:block;}
 .proto-watch-frame video{width:280px;height:336px;object-fit:cover;display:block;}
 .proto-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1.5px solid rgba(255,255,255,0.30);display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity 0.2s;}
 .proto-play-icon{width:0;height:0;border-style:solid;border-width:10px 0 10px 18px;border-color:transparent transparent transparent #ffffff;margin-left:4px;}
@@ -380,6 +380,10 @@ addEventListener('DOMContentLoaded',()=>{
 #kd .decision-rationale li:before{content:'–';position:absolute;left:0;color:#6b6b73}
 #kd .decision-rationale.single .rationale{max-width:760px}
 @media(max-width:700px){#kd .decision-rationale .columns{grid-template-columns:1fr!important;gap:32px!important}}
+</style><style>
+.proto-player-controls{width:min(100%,400px);margin:16px auto 0;display:flex;align-items:center;gap:12px;padding:12px 14px;background:#F4F2ED;border:1px solid #e5e2dc;border-radius:10px;color:#1C3A30;font:14px 'DM Sans',sans-serif}
+.proto-control-toggle{border:0;background:#1C3A30;color:white;border-radius:50%;width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;cursor:pointer}
+.proto-control-toggle svg{width:18px;height:18px}.proto-timeline{min-width:0;flex:1;accent-color:#1C3A30;cursor:pointer}.proto-time{white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums}.proto-control-toggle:focus-visible,.proto-timeline:focus-visible{outline:2px solid #1C3A30;outline-offset:3px}
 </style></head>
 <body>
 <nav class="nav">
@@ -2197,7 +2201,7 @@ addEventListener('DOMContentLoaded',()=>{
     <div class="proto-video-wrap">
       <div class="proto-device-shell active" id="shell-mobile">
         <div class="proto-phone-frame" id="frame-mobile">
-          <video id="proto-video-mobile" class="proto-video" src="assets/Skin-Buddy-Walkthrough.mp4" playsinline></video>
+          <video id="proto-video-mobile" class="proto-video" src="assets/Skin-Buddy-Mobile-Prototype.mp4" poster="assets/mobile-opening-poster.jpg" preload="metadata" playsinline></video>
           <div class="proto-play-btn">
             <div class="proto-play-icon"></div>
             <div class="proto-pause-icon"><span></span><span></span></div>
@@ -2376,7 +2380,22 @@ addEventListener('DOMContentLoaded',()=>{
   window.addEventListener('resize', layout);
 })();
 </script>
-
+<script>
+(function(){
+ const wrap=document.querySelector('.proto-video-wrap');
+ const controls=document.createElement('div');controls.className='proto-player-controls';
+ controls.innerHTML='<button class="proto-control-toggle" type="button" aria-label="Play video"></button><input class="proto-timeline" type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"><span class="proto-time">0:00 / 0:00</span>';
+ wrap.after(controls);
+ const toggle=controls.querySelector('button'),range=controls.querySelector('input'),time=controls.querySelector('span');
+ const getVideo=()=>document.querySelector('.proto-device-shell.active video');
+ const format=t=>Math.floor((t||0)/60)+':'+String(Math.floor((t||0)%60)).padStart(2,'0');
+ function sync(){const v=getVideo();if(!v)return;const playing=!v.paused&&!v.ended;toggle.setAttribute('aria-label',playing?'Pause video':'Play video');toggle.innerHTML=playing?'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>':'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';range.value=Number.isFinite(v.duration)?v.currentTime/v.duration*100:0;range.disabled=!Number.isFinite(v.duration);time.textContent=format(v.currentTime)+' / '+format(Number.isFinite(v.duration)?v.duration:0);v.parentElement.classList.toggle('playing',playing);}
+ toggle.addEventListener('click',()=>{let v=getVideo();if(v.paused){v.play().catch(()=>{})}else v.pause()});
+ range.addEventListener('input',()=>{let v=getVideo();if(Number.isFinite(v.duration))v.currentTime=range.value/100*v.duration;sync()});
+ document.querySelectorAll('.proto-video').forEach(v=>{v.preload='metadata';['play','pause','timeupdate','loadedmetadata','ended','seeked'].forEach(e=>v.addEventListener(e,sync))});
+ document.querySelectorAll('.proto-tab').forEach(t=>t.addEventListener('click',()=>requestAnimationFrame(sync)));sync();
+})();
+</script>
 <div id="ph-sheet-wrap" aria-hidden="true">
   <div id="ph-dim" onclick="phNavClose()"></div>
   <div id="ph-sheet" role="dialog" aria-label="Navigation menu">
