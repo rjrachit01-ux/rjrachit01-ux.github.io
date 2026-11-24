@@ -316,7 +316,7 @@ html.skip-entry #pg-entry{display:none!important;}
 .ab-radio-card{display:flex;align-items:center;gap:14px;background:var(--white);border:1.5px solid var(--bd);border-radius:10px;padding:14px 16px;}
 .ab-radio-icon{width:38px;height:38px;border-radius:50%;background:var(--tc);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ab-radio-cap{font-size:13px;color:var(--ink2);line-height:1.5;}
-.ab-mid{display:grid;grid-template-columns:1fr 2px 1fr;gap:24px;margin-top:32px;}
+.ab-mid{display:grid;grid-template-columns:1fr 2px 1fr;gap:24px;margin-top:32px;}.ab-body{margin-top:32px;}
 @media(max-width:500px){.ab-mid{grid-template-columns:1fr;gap:20px;}.ab-mid-divider{display:none;}}
 .ab-mid-divider{background:var(--bd);width:2px;align-self:stretch;}
 .ab-mid-p{font-size:15px;color:var(--ink2);line-height:1.75;margin-bottom:16px;}
@@ -942,16 +942,12 @@ paint();requestAnimationFrame(tick);
             <span class="ab-eyebrow">About me</span>
             <h2 class="ab-heading">Different stages.<br>Same <span class="ab-heading-accent">curiosity.</span></h2>
             <p class="ab-intro">I've always been fascinated by people—how they think, behave, and experience the world around them.</p>
-            <div class="ab-mid">
-              <div class="ab-mid-left">
-                <p class="ab-mid-p">Long before I became a designer, I spent nearly a decade as a radio show host, connecting with audiences I would never meet. Every show meant understanding what people needed in that moment, what would keep them engaged, and what would leave them feeling something.</p>
-              </div>
-              <div class="ab-mid-divider"></div>
-              <div class="ab-mid-right">
-                <p class="ab-mid-p">Back then, I never called it user research or human-centred design.</p>
-                <p class="ab-mid-accent">Turns out, there was already a name for it.</p>
-                <p class="ab-mid-p">When I decided to pursue a Master's in UX Design, it never felt like starting over. It felt like changing the tools for something I'd been practising all along.</p>
-              </div>
+            <div class="ab-body">
+              <p class="ab-mid-p">Long before I became a designer, I spent nearly a decade as a radio show host, connecting with audiences I would never meet.</p>
+              <p class="ab-mid-p">Every show meant understanding what people needed in that moment, what would keep them engaged, and what would leave them feeling something.</p>
+              <p class="ab-mid-p">Back then, I never called it user research or human-centred design.</p>
+              <p class="ab-mid-accent">Turns out, there was already a name for it.</p>
+              <p class="ab-mid-p">When I decided to pursue an MSc in User Experience Design from Birmingham City University, UK, it never felt like starting over. It felt like changing the tools for something I'd been practising all along.</p>
             </div>
           </div>
           <!-- Right column -->
