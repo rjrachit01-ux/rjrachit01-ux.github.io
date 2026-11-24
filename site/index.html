@@ -325,11 +325,13 @@ html.skip-entry #pg-entry{display:none!important;}
 .ab-wsp{margin-bottom:52px;}
 .ab-wsp-label{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--tct);display:block;margin-bottom:20px;}
 .ab-wsp-carousel-wrap{position:relative;display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.ab-wsp-track-outer{overflow:hidden;flex:1;}
-.ab-wsp-track{display:flex;gap:14px;transition:transform .42s var(--eout);}
-.wsp-slide{height:360px;flex-shrink:0;}
+.ab-wsp-track-outer{flex:1;overflow:hidden;}
+.ab-wsp-track{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:grab;}
+.ab-wsp-track::-webkit-scrollbar{display:none;}
+.ab-wsp-track:active{cursor:grabbing;}
+.wsp-slide{height:360px;flex-shrink:0;scroll-snap-align:start;}
 .wsp-img-wrap{width:100%;height:100%;border-radius:8px;overflow:hidden;border:1.5px solid var(--bd);background:var(--p2);}
-.wsp-img-wrap img{width:100%;height:100%;object-fit:fill;display:block;transition:transform .3s var(--eout);}
+.wsp-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s var(--eout);}
 .wsp-slide:hover .wsp-img-wrap img{transform:scale(1.04);}
 .ab-wsp-arr{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--bd);background:var(--white);color:var(--ink2);font-size:16px;cursor:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .18s,color .18s,background .18s;}
 .ab-wsp-arr:hover{border-color:var(--bdh);color:var(--ink);background:var(--p2);}
@@ -972,48 +974,20 @@ paint();requestAnimationFrame(tick);
             <button class="ab-wsp-arr ab-wsp-prev" onclick="wspPrev()" aria-label="Previous">←</button>
             <div class="ab-wsp-track-outer">
                             <div class="ab-wsp-track" id="wsp-track">
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:203px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:162px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:504px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:288px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:540px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:265px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:203px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:240px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide" style="width:203px"><div class="wsp-img-wrap"><img src="photos/1000062325.jpg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:162px"><div class="wsp-img-wrap"><img src="photos/1000076839.JPG" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:270px"><div class="wsp-img-wrap"><img src="photos/1000078386.jpg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:504px"><div class="wsp-img-wrap"><img src="photos/1000112041.jpg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:270px"><div class="wsp-img-wrap"><img src="photos/1000127292.jpg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:270px"><div class="wsp-img-wrap"><img src="photos/1000174693.JPG" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:288px"><div class="wsp-img-wrap"><img src="photos/4337.jpg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:540px"><div class="wsp-img-wrap"><img src="photos/4AED2D88-0018-4CB6-B6B7-507B9EFA95A3.jpg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:265px"><div class="wsp-img-wrap"><img src="photos/IMG_0098.jpeg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:480px"><div class="wsp-img-wrap"><img src="photos/IMG_1405.jpeg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:203px"><div class="wsp-img-wrap"><img src="photos/IMG_1986.jpeg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:480px"><div class="wsp-img-wrap"><img src="photos/IMG_4394.jpeg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:480px"><div class="wsp-img-wrap"><img src="photos/IMG_4816.jpeg" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide" style="width:240px"><div class="wsp-img-wrap"><img src="photos/IMG_5266.JPG" alt="" loading="lazy"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:203px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:162px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:504px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:288px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:540px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:265px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:203px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:240px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide" style="width:540px"><div class="wsp-img-wrap"><img src="photos/1.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:265px"><div class="wsp-img-wrap"><img src="photos/2.jpeg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:504px"><div class="wsp-img-wrap"><img src="photos/3.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:480px"><div class="wsp-img-wrap"><img src="photos/4.jpeg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:480px"><div class="wsp-img-wrap"><img src="photos/5.jpeg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:480px"><div class="wsp-img-wrap"><img src="photos/6.jpeg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:240px"><div class="wsp-img-wrap"><img src="photos/7.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:270px"><div class="wsp-img-wrap"><img src="photos/8.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:288px"><div class="wsp-img-wrap"><img src="photos/9.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:202px"><div class="wsp-img-wrap"><img src="photos/10.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:162px"><div class="wsp-img-wrap"><img src="photos/11.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:270px"><div class="wsp-img-wrap"><img src="photos/12.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:270px"><div class="wsp-img-wrap"><img src="photos/13.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:202px"><div class="wsp-img-wrap"><img src="photos/14.jpeg" alt="" loading="lazy"></div></div>
               </div>
             </div>
             <button class="ab-wsp-arr ab-wsp-next" onclick="wspNext()" aria-label="Next">→</button>
@@ -2038,8 +2012,35 @@ window.addEventListener('resize',rachitMeasure);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(rachitMeasure).catch(()=>{});
 
 /* WHAT SHAPED ME carousel */
-let wspIdx=5; // real slides live at indices 5-9 (0-4 and 10-14 are clones)
+let wspIdx=0,wspTimer=null;
 const WSP_REAL=14;
+function wspTrack(){return document.getElementById('wsp-track');}
+function wspSlides(){return Array.from(document.querySelectorAll('.wsp-slide'));}
+function wspScrollTo(idx,animate){
+  const track=wspTrack();const slides=wspSlides();
+  if(!track||!slides.length)return;
+  let left=0;for(let i=0;i<idx;i++){left+=slides[i].offsetWidth+10;}
+  track.scrollTo({left,behavior:animate?'smooth':'instant'});
+}
+function wspUpdateDots(){
+  document.querySelectorAll('.ab-wsp-dot').forEach((d,j)=>d.classList.toggle('on',j===wspIdx));
+}
+function wspGo(i){
+  wspIdx=((i%WSP_REAL)+WSP_REAL)%WSP_REAL;
+  wspScrollTo(wspIdx,true);
+  wspUpdateDots();
+  wspStartAutoplay();
+}
+function wspPrev(){wspGo(wspIdx-1);}
+function wspNext(){wspGo(wspIdx+1);}
+function wspStartAutoplay(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  wspStopAutoplay();
+  wspTimer=setInterval(wspNext,2500);
+}
+function wspStopAutoplay(){
+  if(wspTimer){clearInterval(wspTimer);wspTimer=null;}
+}
 function wspInit(){
   const dots=document.getElementById('wsp-dots');
   if(!dots)return;
@@ -2047,12 +2048,10 @@ function wspInit(){
   for(let i=0;i<WSP_REAL;i++){
     const d=document.createElement('div');
     d.className='ab-wsp-dot'+(i===0?' on':'');
-    d.onclick=()=>wspGo(WSP_REAL+i);
+    d.onclick=()=>wspGo(i);
     dots.appendChild(d);
   }
-  const track=document.getElementById('wsp-track');
-  if(track)track.addEventListener('transitionend',wspSnapCheck);
-  wspIdx=WSP_REAL;wspSetTransform(wspIdx,false);wspUpdateDots();
+  wspIdx=0;wspScrollTo(0,false);wspUpdateDots();
   const wrap=document.querySelector('.ab-wsp-carousel-wrap');
   if(wrap){
     wrap.addEventListener('mouseenter',wspStopAutoplay);
@@ -2060,41 +2059,28 @@ function wspInit(){
     wrap.addEventListener('focusin',wspStopAutoplay);
     wrap.addEventListener('focusout',wspStartAutoplay);
   }
+  const track=wspTrack();
+  if(track){
+    track.addEventListener('mousedown',()=>track.style.cursor='grabbing');
+    track.addEventListener('mouseup',()=>track.style.cursor='grab');
+    track.addEventListener('mouseleave',()=>track.style.cursor='grab');
+    let st;
+    track.addEventListener('scroll',()=>{
+      clearTimeout(st);
+      st=setTimeout(()=>{
+        const slides=wspSlides();
+        let cum=0,best=0,bestDist=Infinity;
+        for(let i=0;i<slides.length;i++){
+          const dist=Math.abs(cum-track.scrollLeft);
+          if(dist<bestDist){bestDist=dist;best=i;}
+          cum+=slides[i].offsetWidth+10;
+        }
+        wspIdx=best;wspUpdateDots();
+      },80);
+    });
+  }
   wspStartAutoplay();
 }
-let wspTimer=null;
-function wspStartAutoplay(){
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  wspStopAutoplay();
-  wspTimer=setInterval(wspNext,4200);
-}
-function wspStopAutoplay(){
-  if(wspTimer){clearInterval(wspTimer);wspTimer=null;}
-}
-function wspSetTransform(i,animate){
-  const track=document.getElementById('wsp-track');
-  const slides=document.querySelectorAll('.wsp-slide');
-  if(!track||!slides.length)return;
-  let offset=0;for(let j=0;j<i;j++){offset+=slides[j].offsetWidth+14;}
-  track.style.transition=animate?'transform .42s var(--eout)':'none';
-  track.style.transform=`translateX(-${offset}px)`;
-}
-function wspUpdateDots(){
-  const real=((wspIdx-WSP_REAL)%WSP_REAL+WSP_REAL)%WSP_REAL;
-  document.querySelectorAll('.ab-wsp-dot').forEach((d,j)=>d.classList.toggle('on',j===real));
-}
-function wspGo(i){
-  wspIdx=i;
-  wspSetTransform(wspIdx,true);
-  wspUpdateDots();
-  wspStartAutoplay();
-}
-function wspSnapCheck(){
-  if(wspIdx>=WSP_REAL*2){wspIdx-=WSP_REAL;wspSetTransform(wspIdx,false);}
-  else if(wspIdx<WSP_REAL){wspIdx+=WSP_REAL;wspSetTransform(wspIdx,false);}
-}
-function wspPrev(){wspGo(wspIdx-1);}
-function wspNext(){wspGo(wspIdx+1);}
 
 /* INIT */
 window.addEventListener('load',()=>{
