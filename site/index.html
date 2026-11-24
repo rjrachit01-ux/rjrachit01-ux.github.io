@@ -2012,22 +2012,26 @@ window.addEventListener('resize',rachitMeasure);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(rachitMeasure).catch(()=>{});
 
 /* WHAT SHAPED ME carousel */
-let wspIdx=0,wspTimer=null,wspSnapTimer=null;
+let wspIdx=0,wspTimer=null,_wspSEH=null;
 const WSP_REAL=14,WSP_CLONE=3;
 function wspTrack(){return document.getElementById('wsp-track');}
 function wspSlides(){return Array.from(document.querySelectorAll('.wsp-slide'));}
 function wspScrollTo(idx,animate){
   const track=wspTrack();const slides=wspSlides();
   if(!track||!slides.length)return;
+  if(_wspSEH){track.removeEventListener('scrollend',_wspSEH);_wspSEH=null;}
   let left=0;for(let i=0;i<idx;i++){left+=slides[i].offsetWidth+10;}
   track.scrollTo({left,behavior:animate?'smooth':'instant'});
-  clearTimeout(wspSnapTimer);
   if(animate&&idx>=WSP_REAL){
-    wspSnapTimer=setTimeout(()=>{
-      wspIdx=idx-WSP_REAL;
-      wspScrollTo(wspIdx,false);
+    _wspSEH=function(){
+      track.removeEventListener('scrollend',_wspSEH);_wspSEH=null;
+      const realIdx=idx-WSP_REAL;
+      let realLeft=0;for(let i=0;i<realIdx;i++){realLeft+=slides[i].offsetWidth+10;}
+      wspIdx=realIdx;
+      track.scrollTo({left:realLeft,behavior:'instant'});
       wspUpdateDots();
-    },480);
+    };
+    track.addEventListener('scrollend',_wspSEH);
   }
 }
 function wspUpdateDots(){
@@ -2042,7 +2046,8 @@ function wspGo(i){
   wspStartAutoplay();
 }
 function wspPrev(){
-  if(wspIdx<=0){clearTimeout(wspSnapTimer);wspIdx=WSP_REAL-1;wspScrollTo(wspIdx,true);wspUpdateDots();wspStartAutoplay();}
+  if(_wspSEH){wspTrack()?.removeEventListener('scrollend',_wspSEH);_wspSEH=null;}
+  if(wspIdx<=0){wspIdx=WSP_REAL-1;wspScrollTo(wspIdx,true);wspUpdateDots();wspStartAutoplay();}
   else{wspGo(wspIdx-1);}
 }
 function wspNext(){wspGo(wspIdx+1);}
@@ -2073,7 +2078,7 @@ function wspInit(){
   for(let i=0;i<WSP_REAL;i++){
     const d=document.createElement('div');
     d.className='ab-wsp-dot'+(i===0?' on':'');
-    d.onclick=()=>{clearTimeout(wspSnapTimer);wspIdx=i;wspScrollTo(i,true);wspUpdateDots();wspStartAutoplay();};
+    d.onclick=()=>{if(_wspSEH){wspTrack()?.removeEventListener('scrollend',_wspSEH);_wspSEH=null;}wspIdx=i;wspScrollTo(i,true);wspUpdateDots();wspStartAutoplay();};
     dots.appendChild(d);
   }
   wspIdx=0;wspScrollTo(0,false);wspUpdateDots();
