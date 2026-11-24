@@ -310,8 +310,8 @@ html.skip-entry #pg-entry{display:none!important;}
 @media(max-width:800px){.ab-right{display:block;}}
 .ab-annotation{position:absolute;top:-8px;right:0;font-family:var(--fb);font-size:13px;color:var(--ink2);line-height:1.4;text-align:right;font-style:italic;}
 .ab-arrow{display:block;font-size:20px;color:var(--tc);line-height:1;margin-top:2px;}
-.ab-img-placeholder{position:relative;width:100%;flex:1 1 auto;min-height:220px;background:var(--p2);border-radius:10px;border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;margin-bottom:14px;margin-top:34px;}
-@media(max-width:800px){.ab-img-placeholder{flex:none;aspect-ratio:4/3;margin-top:32px;}}
+.ab-hero-photo{position:relative;width:100%;aspect-ratio:2/1;border-radius:10px;overflow:hidden;border:1.5px solid var(--bd);margin-bottom:14px;margin-top:34px;background:var(--p2);}.ab-hero-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+@media(max-width:800px){.ab-hero-photo{aspect-ratio:4/3;}}
 .ab-img-sparkle{position:absolute;bottom:-10px;right:-10px;font-size:20px;color:var(--tc);line-height:1;}
 .ab-radio-card{display:flex;align-items:center;gap:14px;background:var(--white);border:1.5px solid var(--bd);border-radius:10px;padding:14px 16px;}
 .ab-radio-icon{width:38px;height:38px;border-radius:50%;background:var(--tc);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -327,8 +327,8 @@ html.skip-entry #pg-entry{display:none!important;}
 .ab-wsp-carousel-wrap{position:relative;display:flex;align-items:center;gap:12px;margin-bottom:14px;}
 .ab-wsp-track-outer{overflow:hidden;flex:1;}
 .ab-wsp-track{display:flex;gap:14px;transition:transform .42s var(--eout);}
-.wsp-slide{flex-shrink:0;width:calc(20% - 12px);min-width:160px;}
-.wsp-img-wrap{aspect-ratio:4/3;border-radius:8px;overflow:hidden;border:1.5px solid var(--bd);background:var(--p2);}
+.wsp-slide{flex-shrink:0;}
+.wsp-img-wrap{height:360px;border-radius:8px;overflow:hidden;border:1.5px solid var(--bd);background:var(--p2);}
 .wsp-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s var(--eout);}
 .wsp-slide:hover .wsp-img-wrap img{transform:scale(1.04);}
 .ab-wsp-arr{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--bd);background:var(--white);color:var(--ink2);font-size:16px;cursor:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .18s,color .18s,background .18s;}
@@ -955,7 +955,7 @@ paint();requestAnimationFrame(tick);
           <!-- Right column -->
           <div class="ab-right">
 
-            <div class="ab-img-placeholder"><span class="ab-img-sparkle" aria-hidden="true">✦</span></div>
+            <div class="ab-hero-photo"><img src="photos/32583.jpg" alt="Rachit in the radio studio at MY FM" loading="lazy"></div>
             <div class="ab-radio-card">
               <div class="ab-radio-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" fill="#fff"/><path d="M19 10v2a7 7 0 0 1-14 0v-2" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="19" x2="12" y2="23" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="23" x2="16" y2="23" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
@@ -971,22 +971,49 @@ paint();requestAnimationFrame(tick);
           <div class="ab-wsp-carousel-wrap">
             <button class="ab-wsp-arr ab-wsp-prev" onclick="wspPrev()" aria-label="Previous">←</button>
             <div class="ab-wsp-track-outer">
-              <div class="ab-wsp-track" id="wsp-track">
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide"><div class="wsp-img-wrap" role="img" aria-label="Radio studio, MY FM"></div></div>
-                <div class="wsp-slide"><div class="wsp-img-wrap" role="img" aria-label="Mall billboard, Jaipur"></div></div>
-                <div class="wsp-slide"><div class="wsp-img-wrap" role="img" aria-label="Swach Bharat, 2019"></div></div>
-                <div class="wsp-slide"><div class="wsp-img-wrap" role="img" aria-label="After a college event"></div></div>
-                <div class="wsp-slide"><div class="wsp-img-wrap" role="img" aria-label="Live school event"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
-                <div class="wsp-slide wsp-clone" aria-hidden="true"><div class="wsp-img-wrap"></div></div>
+                            <div class="ab-wsp-track" id="wsp-track">
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:203px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:162px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:504px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:288px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:540px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:265px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:203px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:240px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide" style="width:203px"><div class="wsp-img-wrap"><img src="photos/1000062325.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:162px"><div class="wsp-img-wrap"><img src="photos/1000076839.JPG" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:270px"><div class="wsp-img-wrap"><img src="photos/1000078386.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:504px"><div class="wsp-img-wrap"><img src="photos/1000112041.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:270px"><div class="wsp-img-wrap"><img src="photos/1000127292.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:270px"><div class="wsp-img-wrap"><img src="photos/1000174693.JPG" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:288px"><div class="wsp-img-wrap"><img src="photos/4337.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:540px"><div class="wsp-img-wrap"><img src="photos/4AED2D88-0018-4CB6-B6B7-507B9EFA95A3.jpg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:265px"><div class="wsp-img-wrap"><img src="photos/IMG_0098.jpeg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:480px"><div class="wsp-img-wrap"><img src="photos/IMG_1405.jpeg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:203px"><div class="wsp-img-wrap"><img src="photos/IMG_1986.jpeg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:480px"><div class="wsp-img-wrap"><img src="photos/IMG_4394.jpeg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:480px"><div class="wsp-img-wrap"><img src="photos/IMG_4816.jpeg" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide" style="width:240px"><div class="wsp-img-wrap"><img src="photos/IMG_5266.JPG" alt="" loading="lazy"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:203px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:162px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:504px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:270px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:288px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:540px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:265px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:203px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:480px"><div class="wsp-img-wrap"></div></div>
+                <div class="wsp-slide wsp-clone" aria-hidden="true" style="width:240px"><div class="wsp-img-wrap"></div></div>
               </div>
             </div>
             <button class="ab-wsp-arr ab-wsp-next" onclick="wspNext()" aria-label="Next">→</button>
@@ -2012,7 +2039,7 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(rachitMeasure)
 
 /* WHAT SHAPED ME carousel */
 let wspIdx=5; // real slides live at indices 5-9 (0-4 and 10-14 are clones)
-const WSP_REAL=5;
+const WSP_REAL=14;
 function wspInit(){
   const dots=document.getElementById('wsp-dots');
   if(!dots)return;
@@ -2048,9 +2075,9 @@ function wspSetTransform(i,animate){
   const track=document.getElementById('wsp-track');
   const slides=document.querySelectorAll('.wsp-slide');
   if(!track||!slides.length)return;
-  const slideW=slides[0].offsetWidth+14;
+  let offset=0;for(let j=0;j<i;j++){offset+=slides[j].offsetWidth+14;}
   track.style.transition=animate?'transform .42s var(--eout)':'none';
-  track.style.transform=`translateX(-${i*slideW}px)`;
+  track.style.transform=`translateX(-${offset}px)`;
 }
 function wspUpdateDots(){
   const real=((wspIdx-WSP_REAL)%WSP_REAL+WSP_REAL)%WSP_REAL;
