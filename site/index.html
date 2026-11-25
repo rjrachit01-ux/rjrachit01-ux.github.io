@@ -81,15 +81,15 @@ button{font-family:var(--fb);cursor:none;border:none;background:none;}
 .nav.nav-lock{background:transparent!important;backdrop-filter:none!important;border-bottom:none!important;transition:opacity 560ms cubic-bezier(0.16,1,0.3,1),transform 560ms cubic-bezier(0.16,1,0.3,1)!important;}
 .nav.arriving{opacity:0;transform:translateY(-24px);}
 .nav.arrived{opacity:1;transform:translateY(0);}
-.navi{display:flex;align-items:center;justify-content:space-between;height:64px;}
-.nlogo{font-family:var(--fh);font-weight:800;font-size:20px;color:#f9f7f2;cursor:none;transition:color .18s;letter-spacing:-.01em;background:none;border:none;}.nav.scrolled .nlogo{color:var(--ink);}
+.site-nav__inner{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,52px);display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nlogo{font-family:var(--fh);font-weight:800;font-size:20px;line-height:normal;color:#f9f7f2;cursor:none;transition:color .18s;letter-spacing:-.01em;background:none;border:none;}.nav.scrolled .nlogo{color:var(--ink);}
 .nlogo:hover{color:var(--tct);}
 .nlogo .a{color:var(--tct);}
 .nlinks{display:flex;gap:2px;align-items:center;}
 .nmenu-btn{display:none;}
-.nlk{font-size:14px;font-weight:500;color:rgba(249,247,242,.7);padding:7px 13px;border-radius:20px;cursor:none;background:none;border:none;transition:color .18s,background .18s;}.nav.scrolled .nlk{color:var(--ink3);}
+.nlk{font-size:14px;font-weight:500;line-height:normal;color:rgba(249,247,242,.7);padding:7px 13px;border-radius:20px;cursor:none;background:none;border:none;transition:color .18s,background .18s;}.nav.scrolled .nlk{color:var(--ink3);}
 .nlk:hover,.nlk.on{color:#f9f7f2;background:rgba(249,247,242,.12);}.nav.scrolled .nlk:hover,.nav.scrolled .nlk.on{color:var(--ink);background:var(--p2);}
-.ncta{font-size:14px;font-weight:500;color:var(--ink);background:#f9f7f2;padding:8px 20px;border-radius:20px;cursor:none;border:none;margin-left:8px;transition:background .18s,transform .14s var(--espr);}.nav.scrolled .ncta{color:var(--paper);background:var(--ink);}
+.ncta{font-size:14px;font-weight:500;line-height:normal;color:var(--ink);background:#f9f7f2;padding:8px 20px;border-radius:20px;cursor:none;border:none;margin-left:8px;transition:background .18s,transform .14s var(--espr);}.nav.scrolled .ncta{color:var(--paper);background:var(--ink);}
 .ncta:hover{background:var(--tct);transform:scale(1.03);}
 @media(max-width:900px){.nlk{font-size:12px;padding:6px 10px;}}
 @media(max-width:640px){.nlinks{gap:1px;}.nlk{font-size:11px;padding:5px 7px;}.ncta{padding:7px 13px;margin-left:3px;}}
@@ -643,7 +643,7 @@ firebase.analytics();
 
 <!-- HOME -->
 <div id="pg-home" class="page">
-  <nav class="nav nav-lock"><div class="wrap navi">
+  <nav class="nav nav-lock"><div class="site-nav__inner">
     <button class="nlogo" onclick="gp('home')">Ra<span class="a">Pa</span></button>
     <div class="nlinks">
       <button class="nlk on" onclick="navWork()">My work</button>
@@ -1036,7 +1036,7 @@ paint();requestAnimationFrame(tick);
 
 <!-- GALLERY -->
 <div id="pg-gallery" class="page" style="flex-direction:column;">
-  <nav class="nav"><div class="wrap navi"><button class="nlogo" onclick="gp('home')">Ra<span class="a">Pa</span></button><div class="nlinks"><button class="nlk" onclick="navWork()">My work</button><button class="nlk" onclick="navAbout()">About me</button><button class="nlk" onclick="gp('playground')">Playground</button><button class="nlk on" onclick="gp('gallery')">Visitor gallery</button><button class="ncta" onclick="navContact()">Get in touch</button></div><button class="nmenu-btn" onclick="phNavOpen()" aria-label="Menu" aria-expanded="false"><svg class="nm-bars" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M3 7h18M3 12h18M3 17h18"/></svg><svg class="nm-x" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div></nav>
+  <nav class="nav"><div class="site-nav__inner"><button class="nlogo" onclick="gp('home')">Ra<span class="a">Pa</span></button><div class="nlinks"><button class="nlk" onclick="navWork()">My work</button><button class="nlk" onclick="navAbout()">About me</button><button class="nlk" onclick="gp('playground')">Playground</button><button class="nlk on" onclick="gp('gallery')">Visitor gallery</button><button class="ncta" onclick="navContact()">Get in touch</button></div><button class="nmenu-btn" onclick="phNavOpen()" aria-label="Menu" aria-expanded="false"><svg class="nm-bars" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M3 7h18M3 12h18M3 17h18"/></svg><svg class="nm-x" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div></nav>
   <main style="flex:1"><div class="wrap">
     <div class="gal-head">
       <div><h1 class="gal-title">The people who knocked.</h1><p class="gal-sub">Real visitors. Real cards.</p><p class="gal-count" id="gal-count"></p></div>
@@ -1052,7 +1052,7 @@ paint();requestAnimationFrame(tick);
 
 <!-- PLAYGROUND -->
 <div id="pg-playground" class="page">
-  <nav class="nav"><div class="wrap navi"><button class="nlogo" onclick="gp('home')">Ra<span class="a">Pa</span></button><div class="nlinks"><button class="nlk" onclick="navWork()">My work</button><button class="nlk" onclick="navAbout()">About me</button><button class="nlk on" onclick="gp('playground')">Playground</button><button class="nlk" onclick="gp('gallery')">Visitor gallery</button><button class="ncta" onclick="navContact()">Get in touch</button></div><button class="nmenu-btn" onclick="phNavOpen()" aria-label="Menu" aria-expanded="false"><svg class="nm-bars" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M3 7h18M3 12h18M3 17h18"/></svg><svg class="nm-x" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div></nav>
+  <nav class="nav"><div class="site-nav__inner"><button class="nlogo" onclick="gp('home')">Ra<span class="a">Pa</span></button><div class="nlinks"><button class="nlk" onclick="navWork()">My work</button><button class="nlk" onclick="navAbout()">About me</button><button class="nlk on" onclick="gp('playground')">Playground</button><button class="nlk" onclick="gp('gallery')">Visitor gallery</button><button class="ncta" onclick="navContact()">Get in touch</button></div><button class="nmenu-btn" onclick="phNavOpen()" aria-label="Menu" aria-expanded="false"><svg class="nm-bars" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M3 7h18M3 12h18M3 17h18"/></svg><svg class="nm-x" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div></nav>
   <main class="pg-stub"><div class="wrap">
     <h1 class="stub-h">Come in. Break things. Learn stuff.</h1>
     <p class="stub-sub">Interactive experiments. No instructions needed.</p>
@@ -1108,7 +1108,7 @@ paint();requestAnimationFrame(tick);
 
 <!-- CASE STUDIES -->
 <div id="pg-skinbuddy" class="page">
-  <nav class="nav nav-lock"><div class="wrap navi">
+  <nav class="nav nav-lock"><div class="site-nav__inner">
     <button class="nlogo" onclick="gp('home')">Ra<span class="a">Pa</span></button>
     <div class="nlinks">
       <button class="nlk" onclick="navWork()">My work</button>
@@ -1124,7 +1124,7 @@ paint();requestAnimationFrame(tick);
 </div>
 
 <div id="pg-replay" class="page">
-  <nav class="nav nav-lock"><div class="wrap navi">
+  <nav class="nav nav-lock"><div class="site-nav__inner">
     <button class="nlogo" onclick="gp('home')">Ra<span class="a">Pa</span></button>
     <div class="nlinks">
       <button class="nlk" onclick="navWork()">My work</button>
@@ -1139,7 +1139,7 @@ paint();requestAnimationFrame(tick);
   <footer class="foot"><div class="wrap"><div class="foot-email-row"><span class="foot-email">hello@rachitpatni.com</span><button class="foot-copy-btn" onclick="cpyEmail(this)">📋 Copy</button></div><div class="foot-bot"><span class="foot-cr">© 2026 Rachit Patni</span><nav class="foot-links"><a href="https://www.linkedin.com/in/rachit-patni/" target="_blank" rel="noopener">LinkedIn</a></nav><button class="foot-back" onclick="gp('entry')">✦ Back to start</button></div></div></footer>
 </div>
 <div id="pg-statsboost" class="page">
-  <nav class="nav nav-lock"><div class="wrap navi">
+  <nav class="nav nav-lock"><div class="site-nav__inner">
     <button class="nlogo" onclick="gp('home')">Ra<span class="a">Pa</span></button>
     <div class="nlinks">
       <button class="nlk" onclick="navWork()">My work</button>
