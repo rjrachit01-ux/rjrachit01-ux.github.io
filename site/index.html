@@ -1232,7 +1232,8 @@ function gp(p,fromPop){
   void nx.offsetWidth;nx.classList.add('pin');
   window.scrollTo({top:0,behavior:'instant'});
   curPg=p;setLt(p==='entry');
-  if(!fromPop)history.pushState({page:p},'',location.pathname);
+  if(p==='entry')document.documentElement.classList.remove('skip-entry');
+  if(!fromPop){var _hm={home:'#home',playground:'#playground',gallery:'#gallery'};history.pushState({page:p},'',_hm[p]||location.pathname);}
   const mascot=document.getElementById('mascot');
   if(mascot)(p==='entry'||p==='onboard')?mascot.classList.add('hidden'):mascot.classList.remove('hidden');
   if(p==='gallery')renderGal();
@@ -1269,12 +1270,12 @@ if(_skipToSection){
       /* Go directly — no home flash */
       curPg='playground';
       gp(_skipToSection,true);
-      history.replaceState({page:_skipToSection},'',location.pathname);
+      history.replaceState({page:_skipToSection},'','#'+_skipToSection);
       document.documentElement.style.scrollBehavior='';
     } else {
       curPg='playground'; /* neutral prevPg so gp('home') skips the dark-bg animation */
       gp('home',true);
-      history.replaceState({page:'home'},'',location.pathname);
+      history.replaceState({page:'home'},'','#'+_skipToSection);
       var secs={work:'work-sec',about:'about-sec',contact:'contact-anchor'};
       if(secs[_skipToSection])setTimeout(function(){
         document.documentElement.style.scrollBehavior=''; /* restore CSS smooth */
@@ -1826,7 +1827,7 @@ function scDrop(l,li,half,x,y){
   const el=document.createElement('div');el.className='sc-piece';
   const SZ=76;const c=document.createElement('canvas');c.width=SZ;c.height=SZ;
   const st={l,half,rot:0,scale:1,flip:1,color:SCCOLS[0],x,y};
-  function redraw(){const ctx=c.getContext('2d');ctx.clearRect(0,0,SZ,SZ);ctx.save();ctx.scale(st.flip,1);scDH(ctx,l.char,half,SZ,SZ,st.color,1);ctx.restore();}
+  function redraw(){const ctx=c.getContext('2d');ctx.clearRect(0,0,SZ,SZ);ctx.save();ctx.translate(SZ/2,SZ/2);ctx.scale(st.flip,1);ctx.translate(-SZ/2,-SZ/2);scDH(ctx,l.char,half,SZ,SZ,st.color,1);ctx.restore();}
   redraw();el.appendChild(c);el.style.left=x+'px';el.style.top=y+'px';el.style.width=SZ+'px';el.style.height=SZ+'px';
   function apT(){c.style.transform=`rotate(${st.rot}deg) scale(${st.scale})`;c.style.transformOrigin='center';}
   el.addEventListener('mousedown',ev=>{ev.stopPropagation();scSel&&scSel.el.classList.remove('sel');scSel={el,c,st,redraw,apT};el.classList.add('sel');
