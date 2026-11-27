@@ -68,7 +68,7 @@ li:last-child{margin-bottom:0}
           <a class="nlk" href="../#gallery">Visitor gallery</a>
           <a class="ncta" href="../#contact">Get in touch</a>
         </div>
-        <button class="nmenu-btn" onclick="phNavOpen()" aria-label="Menu" aria-expanded="false"><svg class="nm-bars" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M3 7h18M3 12h18M3 17h18"/></svg><svg class="nm-x" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+        <button class="nmenu-btn" onclick="phNavToggle()" aria-label="Menu" aria-expanded="false"><svg class="nm-bars" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M3 7h18M3 12h18M3 17h18"/></svg><svg class="nm-x" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
       </div>
     </nav>
     <main>
@@ -644,7 +644,7 @@ li:last-child{margin-bottom:0}
       <div id="ph-dim"></div>
       <div id="ph-sheet" role="dialog" aria-label="Navigation menu">
         <div class="ph-grab"></div>
-        <a class="ph-row" href="../#work">My work</a>
+        <a class="ph-row on" href="../#work">My work</a>
         <a class="ph-row" href="../#about">About me</a>
         <a class="ph-row" href="../#playground">Playground</a>
         <a class="ph-row" href="../#gallery">Visitor gallery</a>
@@ -652,10 +652,14 @@ li:last-child{margin-bottom:0}
       </div>
     </div>
     <script>
-    function phNavOpen(){const w=document.getElementById('ph-sheet-wrap');if(!w)return;w.setAttribute('aria-hidden','false');w.classList.add('open');document.body.classList.add('ph-nav-open');document.querySelector('.nmenu-btn')?.setAttribute('aria-expanded','true');}
-    function phNavClose(){const w=document.getElementById('ph-sheet-wrap');if(!w)return;w.setAttribute('aria-hidden','true');w.classList.remove('open');document.body.classList.remove('ph-nav-open');document.querySelector('.nmenu-btn')?.setAttribute('aria-expanded','false');}
+    let _phScrollY=0;
+    function phNavOpen(){const w=document.getElementById('ph-sheet-wrap');if(!w||w.classList.contains('open'))return;_phScrollY=window.scrollY;w.setAttribute('aria-hidden','false');w.classList.add('open');document.body.classList.add('ph-nav-open');document.querySelector('.nmenu-btn')?.setAttribute('aria-expanded','true');setTimeout(()=>document.getElementById('ph-sheet')?.querySelector('.ph-row')?.focus(),50);}
+    function phNavClose(){const w=document.getElementById('ph-sheet-wrap');if(!w||!w.classList.contains('open'))return;w.setAttribute('aria-hidden','true');w.classList.remove('open');document.body.classList.remove('ph-nav-open');document.querySelector('.nmenu-btn')?.setAttribute('aria-expanded','false');window.scrollTo({top:_phScrollY,behavior:'instant'});document.querySelector('.nmenu-btn')?.focus({preventScroll:true});}
+    function phNavToggle(){document.getElementById('ph-sheet-wrap')?.classList.contains('open')?phNavClose():phNavOpen();}
+    document.getElementById('ph-sheet-wrap')?.addEventListener('keydown',function(e){if(!this.classList.contains('open')||e.key!=='Tab')return;const f=[...this.querySelectorAll('a,button')];const first=f[0],last=f[f.length-1];if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus();}}else{if(document.activeElement===last){e.preventDefault();first.focus();}}});
     document.addEventListener('keydown',e=>{if(e.key==='Escape')phNavClose();});
     document.getElementById('ph-dim')?.addEventListener('click',phNavClose);
+    window.addEventListener('resize',()=>{if(window.innerWidth>=1024)phNavClose();},{passive:true});
     </script>
     <script>
 (function(){
