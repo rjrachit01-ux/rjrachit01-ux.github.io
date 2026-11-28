@@ -162,7 +162,7 @@ html.skip-entry #pg-entry{display:none!important;}
 .vc-top{display:flex;justify-content:space-between;}
 .vc-site{font-family:var(--fm);font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.5;}
 .vc-num{font-family:var(--fm);font-size:12px;opacity:.45;}
-.vc-name{font-family:var(--fh);font-size:22px;font-weight:700;line-height:1.2;margin-top:4px;}
+.vc-name{font-family:var(--fh);font-size:22px;font-weight:700;line-height:1.2;margin-top:4px;overflow-wrap:break-word;}
 .vc-role{font-size:14px;opacity:.65;margin-top:3px;}
 .vc-date{font-family:var(--fm);font-size:12px;opacity:.38;text-transform:uppercase;letter-spacing:.06em;}
 .ob-form-wrap{display:flex;flex-direction:column;gap:18px;}
@@ -365,13 +365,12 @@ html.skip-entry #pg-entry{display:none!important;}
 .gal-sub{font-size:16px;color:var(--ink3);margin-top:8px;line-height:1.5;max-width:520px;margin-bottom:0;}
 .gal-eyebrow{color:var(--tct);display:block;margin-bottom:9px;}
 .gal-title{font-family:var(--fh);font-size:clamp(28px,4vw,52px);font-weight:800;margin-bottom:12px;}
-.gal-count{font-size:14px;color:var(--ink3);margin-top:4px;margin-bottom:0;}
 .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13px;padding-bottom:80px;overflow:visible;padding-top:0;}
 .gcard{border-radius:12px;padding:18px 20px;min-height:148px;display:flex;flex-direction:column;gap:4px;transition:transform .2s var(--eout);position:relative;}
 .gcard:hover{transform:translateY(-3px);}
 .gcard-you{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--paper);color:var(--tc);border:2px solid var(--tc);font-family:var(--fm);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:4px 12px;border-radius:12px;white-space:nowrap;z-index:10;}
 .gcard-site{font-family:var(--fm);font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.42;margin-bottom:6px;display:flex;justify-content:space-between;}
-.gcard-name{font-family:var(--fh);font-size:19px;font-weight:700;line-height:1.2;}
+.gcard-name{font-family:var(--fh);font-size:19px;font-weight:700;line-height:1.2;overflow-wrap:break-word;}
 .gcard-role{font-size:14px;opacity:.60;margin-top:2px;}
 .gcard-date{font-family:var(--fm);font-size:12px;opacity:.35;text-transform:uppercase;letter-spacing:.06em;margin-top:auto;padding-top:10px;}
 .gal-leave{padding:8px 0 0;border-top:none;margin-top:0;text-align:right;flex:0 0 auto;max-width:40%;}
@@ -1243,7 +1242,7 @@ paint();requestAnimationFrame(tick);
     <div class="gal-head">
       <h1 class="gal-title">The people who knocked.</h1>
       <div class="gal-intro-row">
-        <div class="gal-intro-left"><p class="gal-sub">Real visitors. Real cards.</p><p class="gal-count" id="gal-count"></p></div>
+        <div class="gal-intro-left"><p class="gal-sub">Real visitors. Real cards.</p></div>
         <div class="gal-leave" id="gal-leave" style="display:none"><p class="gal-leave-text">You haven't left a card yet.</p><button class="btn-dk" onclick="obPrevPage='gallery';gp('onboard')">Add yours →</button></div>
       </div>
     </div>
@@ -1748,14 +1747,12 @@ function obSubmit(){
 function renderGal(){
   const myId=localStorage.getItem('myCardId');
   const c=document.getElementById('gal-grid');
-  const countEl=document.getElementById('gal-count');
   const leaveEl=document.getElementById('gal-leave');
   c.innerHTML='<p style="color:var(--ink3);font-size:16px;padding:20px 0;">Loading cards…</p>';
   db.collection('visitors').orderBy('ts','desc').get().then(snap=>{
     const vs=snap.docs.map(d=>d.data());
     const hasMyCard=myId&&vs.some(v=>String(v.id)===myId);
     leaveEl.style.display=hasMyCard?'none':'block';
-    if(vs.length>=20){countEl.textContent=`${vs.length} visitor${vs.length!==1?'s':''} so far.`;countEl.style.display='block';}else{countEl.style.display='none';}
     c.innerHTML='';
     if(vs.length===0){return;}
     vs.forEach(v=>{
@@ -1955,9 +1952,12 @@ function startObs(){
 
 /* EMAIL COPY */
 function cpyEmail(btn){
-  const show=()=>{const o=btn.textContent;btn.textContent='✓ Copied';setTimeout(()=>btn.textContent=o,2000);};
-  if(navigator.clipboard){navigator.clipboard.writeText('hello@rachitpatni.com').then(show).catch(()=>{});return;}
-  try{const ta=document.createElement('textarea');ta.value='hello@rachitpatni.com';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);show();}catch(e){}
+  const orig=btn.textContent;
+  const show=()=>{btn.textContent='✓ Copied';setTimeout(()=>btn.textContent=orig,2000);};
+  const fail=()=>{btn.textContent='⚠ Failed';setTimeout(()=>btn.textContent=orig,2000);};
+  const legacy=()=>{try{const ta=document.createElement('textarea');ta.value='hello@rachitpatni.com';ta.style.cssText='position:fixed;opacity:0;pointer-events:none;';document.body.appendChild(ta);ta.focus();ta.select();const ok=document.execCommand('copy');document.body.removeChild(ta);ok?show():fail();}catch(e){fail();}};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText('hello@rachitpatni.com').then(show).catch(legacy);return;}
+  legacy();
 }
 
 /* CONTRAST CHECKER */

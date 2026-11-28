@@ -202,3 +202,88 @@
 - **Hidden state (1440px)**: 32px gap subtitle-to-grid, no empty column ✓
 - **Back and Skip from gallery-origin onboard**: both return to gallery ✓ (browser-simulated)
 - **Physical device unverified**: touch scroll suppression in stage, pointer cancel from OS interrupts, `env(safe-area-inset-*)` insets
+
+## Final whole-site verification — COMPLETE (2026-11-28)
+
+**Checkpoint commit:** `810508c` (Stages 3–4)  
+**Tested in:** Chrome (Chromium) via browser emulation, localhost:4321
+
+### Viewports verified (13 total)
+- **320×740** — no overflow, entry/home render ✓
+- **375×812** — no overflow ✓
+- **390×844** — full pass (all pages/sections) ✓
+- **390×600** — no overflow, entry scrollable ✓
+- **430×932** — no overflow ✓
+- **768×1024** — no overflow (testimonial carousel cards clipped by `.glide-outer overflow:hidden`, cannot scroll horizontally) ✓
+- **820×1180** — no overflow ✓
+- **844×390** — no overflow, tablet nav (hamburger) ✓
+- **960×1440** — no overflow ✓
+- **1023×900** — hamburger visible, desktop links hidden, gallery intro flex row ✓
+- **1024×900** — desktop links visible, hamburger hidden ✓ (breakpoint boundary confirmed)
+- **1032×1376** — no overflow, desktop nav ✓
+- **1440×900** — no overflow, desktop nav, gallery right-edges aligned ✓
+
+### Navigation journeys (real clicks)
+1. Start → Enter → onboard ✓
+2. Back on onboard (entry-origin) → entry ✓
+3. Skip on onboard (entry-origin) → home ✓
+4. Gallery → Add yours → onboard (gallery-origin) ✓
+5. Back on onboard (gallery-origin) → gallery ✓
+6. Skip on onboard (gallery-origin) → gallery ✓
+7. Hamburger → Playground → navigates, sheet closes ✓
+8. Hamburger → Visitor gallery → navigates, sheet closes ✓
+9. Footer "Back to start" → entry ✓
+10. Case study "Next" (Skin Buddy → StatsBoost) ✓
+11. Case study links: StatsBoost has Previous (Skin Buddy) + Next (Replay) ✓
+
+### Hamburger nav
+- Opens bottom sheet with all items (My work active on home) ✓
+- Escape key closes ✓
+- Focus trap: Tab/Shift+Tab cycles within sheet, `role="dialog"`, `aria-label="Navigation menu"` ✓
+- `aria-hidden="false"` on sheet when open, `"true"` when closed ✓
+- Resize to ≥1024px closes sheet ✓
+
+### Phone hero
+- 6 RACHIT letters cycling at 390×844 ✓
+- Timer (`phHeroTimer`) active on home, cleared on nav away ✓
+- Reduced motion: `phHeroCycleStart()` returns early when `prefers-reduced-motion:reduce` ✓
+- Hero stops cycle on resize to ≥768px ✓
+
+### Project cards
+- Phone (390px): 1-col, overlay always visible (opacity:1, relative) ✓
+- Tablet (768px): 2-col, overlay always visible ✓
+- Desktop (1024px): overlay opacity:0 (hover-only), absolute ✓
+
+### Playground
+- Phone: 1-col grid, stool 44×44px ✓
+- Tablet (768px): 2-col grid, Script card `grid-column:1/-1` (full width), stool 44×44px ✓
+- Desktop (≥1024px): stool 30×30px (tablet override reverts) ✓
+
+### Gallery invitation
+- Phone (390px): stacked layout, full-width button, correct DOM order ✓
+- Tablet/Desktop: flex row, invitation right-aligned, right edge = grid right edge ✓
+- gal-leave button: "Add yours →" navigates to onboard with `obPrevPage:'gallery'` ✓
+
+### About photo strip (wspPhotoResize)
+- Equal heights at every breakpoint (all 17 slides same height) ✓
+- Phone: `Math.min(220, availW/maxRatio)` → 172px at 390px (landscape photo caps it) ✓
+- Tablet (768px): 280px exactly ✓
+- Desktop (≥1024px): inline styles cleared, CSS `height:360px` takes over ✓
+- Lazy loading: `loading="lazy"` on all strip images ✓
+
+### Forms / onboard
+- Empty name: submit with no name stays on onboard, does not navigate ✓
+- Onboard phone layout: Back + Skip in nav row (top), full-width submit button ✓
+
+### Accessibility
+- No console errors throughout session ✓
+- Hamburger: `aria-label="Menu"` ✓
+- Playground stools: all have text content (emoji symbols), no unlabelled controls ✓
+- Project cards: `role="button"`, `tabindex="0"`, `onkeydown` Enter handler ✓
+- Sheet dialog: `role="dialog"`, `aria-label="Navigation menu"`, focus returns on close ✓
+- Reduced motion: CSS `animation/transition` zeroed globally + JS guards on hero cycle and photo resize ✓
+
+### Notes / known non-issues
+- Testimonial carousel: `adj-right` card extends slightly beyond viewport in DOM, but `body` has `overflow-x:hidden` and `glide-outer` has `overflow-x:hidden`; page cannot scroll horizontally ✓
+- Photo strip heights at phone lower than 220px target — this is correct behaviour: `wspPhotoResize()` caps at `availW/maxRatio` to maintain landscape photo aspect ratios
+- **Physical device unverified**: touch scroll suppression in Playground stage, pointer cancel from OS interrupts, `env(safe-area-inset-*)` insets
