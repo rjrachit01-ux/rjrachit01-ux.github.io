@@ -169,3 +169,36 @@
 - Section padding: `.work-sec,.testi-sec,.about-sec,.playlist-sec` → 56px phone / 64px tablet
 - Section heading: `.sec-h` → `var(--rsp-h2-phone)` / `var(--rsp-h2-tablet)`
 - Relies on existing `--pad:clamp(18px,4vw,52px)` on `.wrap` (already ~18px at 390px)
+
+## Stage 4 — COMPLETE (2026-11-27)
+
+### Pages changed: `site/index.html`
+
+#### Playground (phone <768px, tablet 768–1023px)
+- Phone: `.play-grid{grid-template-columns:1fr;gap:20px;}`, `.play-head/.play-body{padding:20px;}`, `.stool{44px;font-size:16px}`
+- Tablet: `.play-grid{grid-template-columns:1fr 1fr;}`, Script card `.play-card:last-child{grid-column:1/-1}`, `.stool{44px;font-size:16px}`
+- Desktop (≥1024px): `.stool` stays 30×30px/12px — tablet override scoped to tablet breakpoint
+- Pointer events: all `mousedown/move/up` → `pointerdown/pointermove/pointerup` + `pointercancel`
+- `touch-action:none` on `.sc-stage` and `.sc-frag`; `touch-action:manipulation` on `.stool`
+- `getBoundingClientRect()` called live at drag-start (not cached) — coordinates match resized canvas
+- Removed old non-standard `@media(max-width:800px)` and `@media(max-width:560px)` playground breakpoints
+
+#### Visitor gallery — Stage 4 (phone <768px, tablet 768–1023px)
+- **DOM restructure:** `.gal-leave` moved inside `.gal-head` → `gal-intro-row`, before `.gal-grid`, so reading order is title → subtitle → invitation → cards at all sizes
+- Phone: `.gal-intro-row{flex-direction:column}` stacks subtitle and invitation vertically; full-width button, 24px gap above/below invitation; no CSS ordering needed
+- Tablet + desktop (≥768px): `.gal-intro-row{display:flex;justify-content:space-between;align-items:flex-start;gap:32px}` — subtitle left, invitation right; `gal-leave{text-align:right;padding-top:8px;max-width:40%}` aligns text top with subtitle
+- Invitation text: DM Sans 16px/400/1.5/`#6B6B73`; button: DM Sans 16px/500, `#18181B` bg, `#F9F7F2` text, `0 24px` padding, 48px min-height, 28px radius, content-sized on desktop/tablet
+- Right edge: `.gal-leave` right edge aligns with `.gal-grid` right edge (measured 1288px at 1440px viewport) ✓
+- 32px gap to grid: `.gal-head{padding-bottom:32px}` — applies whether invitation is shown or hidden
+- When invitation hidden: no empty column; `.gal-intro-row` shows subtitle only, 32px gap maintained ✓
+- Removed: `border-top`, `text-align:center`, `padding:28px 0 80px` from old `.gal-leave`
+- Removed: `#pg-gallery .wrap{display:flex;flex-direction:column}` and `order:` from phone breakpoint (no longer needed with correct DOM order)
+
+#### Stage 4 verification — browser-measured at key breakpoints
+- **390px**: 1-col grid, full-width button, stacked layout ✓
+- **768px**: 2-col grid, two-col intro row, invitation above cards ✓
+- **1024px**: 4-col grid, two-col intro row ✓
+- **1440px**: 5-col grid, invitation top and right edges aligned with subtitle and grid ✓; mouse drag works; stool 30px unchanged ✓
+- **Hidden state (1440px)**: 32px gap subtitle-to-grid, no empty column ✓
+- **Back and Skip from gallery-origin onboard**: both return to gallery ✓ (browser-simulated)
+- **Physical device unverified**: touch scroll suppression in stage, pointer cancel from OS interrupts, `env(safe-area-inset-*)` insets
